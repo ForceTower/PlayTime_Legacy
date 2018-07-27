@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.forcetower.playtime.MockUtils;
+import com.forcetower.playtime.utils.MockUtils;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentRecommendationsBinding;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.ui.adapter.RecommendationsAdapter;
+import com.squareup.picasso.Picasso;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.SwipeDirection;
 
@@ -94,6 +95,7 @@ public class RecommendationsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Timber.d("onActivityCreated()");
+        Picasso.with(requireContext()).load("https://avatars1.githubusercontent.com/u/9421614?s=460&v=4").into(binding.toolbarInclude.userImage);
         if (savedInstanceState == null) {
             List<Title> titles = MockUtils.getAll();
             fillAdapter(titles);

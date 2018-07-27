@@ -13,6 +13,7 @@ import android.view.View;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.ActivityMainBinding;
 import com.forcetower.playtime.ui.fragments.RecommendationsFragment;
+import com.forcetower.playtime.ui.fragments.TitleListFragment;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,11 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
         setLightStatusBar(binding.getRoot());
 
-        Picasso.with(this).load("https://avatars1.githubusercontent.com/u/9421614?s=460&v=4").into(binding.userImage);
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new RecommendationsFragment(), "recommendations")
+                    .replace(R.id.container, new TitleListFragment(), "recommendations")
                     .commit();
         }
     }

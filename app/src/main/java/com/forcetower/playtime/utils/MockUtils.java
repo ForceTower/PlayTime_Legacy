@@ -1,4 +1,4 @@
-package com.forcetower.playtime;
+package com.forcetower.playtime.utils;
 
 import com.forcetower.playtime.db.model.Title;
 
@@ -45,6 +45,35 @@ public class MockUtils {
         recommendations.add(westworld);
 
         return recommendations;
+    }
+
+    public static List<Title> getTop() {
+        List<Title> titles = new ArrayList<>();
+        avengers.setGenres("Ação / Aventura / Comédia");
+        avengers.setWatchCount(67345);
+        titles.add(avengers);
+        incredibles.setGenres("Ação / Aventura / Animação");
+        incredibles.setWatchCount(2398777);
+        titles.add(incredibles);
+        westworld.setGenres("Ação / Ficção Científica / Drama");
+        westworld.setWatchCount(231123);
+        titles.add(westworld);
+        jurassic.setGenres("Aventura / Ficção Científica");
+        jurassic.setWatchCount(90883);
+        titles.add(jurassic);
+        strange.setGenres("Ação / Aventura");
+        strange.setWatchCount(12189);
+        titles.add(strange);
+        incredibles2.setGenres("Ação / Aventura / Animação");
+        incredibles2.setWatchCount(100988);
+        titles.add(incredibles2);
+        readyP1.setGenres("Ação / Aventura / Ficção Científica");
+        readyP1.setWatchCount(763451);
+        titles.add(readyP1);
+        ilha.setGenres("Ação / Aventura / Comédia");
+        ilha.setWatchCount(456233);
+        titles.add(ilha);
+        return titles;
     }
 
     public static List<Title> getAll() {

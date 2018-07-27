@@ -13,6 +13,8 @@ public class Title {
     private float rating;
     private String releaseDate;
     private String description;
+    private String genres;
+    private int watchCount;
 
     public Title(String name, String image, String trailer, float rating, String releaseDate) {
         this.name = name;
@@ -76,5 +78,21 @@ public class Title {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
+
+    public int getWatchCount() {
+        return watchCount;
+    }
+
+    public void setWatchCount(int watchCount) {
+        this.watchCount = watchCount;
     }
 }
