@@ -1,5 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:locale="pt">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
     <string name="app_name">PlayTime</string>
     <string name="title_poster">Pôster do Título</string>
     <string name="launched_at">Lançado em %1$s</string>

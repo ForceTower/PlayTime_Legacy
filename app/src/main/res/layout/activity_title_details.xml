@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="title"
+            type="com.forcetower.playtime.db.model.Title"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.TitleDetailsActivity"
+        android:background="@color/white"
+        tools:backgroundTint="@color/spider_blue">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/image_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/event_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:contentDescription="@string/title_poster"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{title.image}"
+                app:layout_constraintDimensionRatio="H,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/spider_man" />
+
+            <View
+                android:id="@+id/frame_b"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:layout_constraintBottom_toBottomOf="@id/event_image"
+                android:background="@drawable/gradient_bottom_top"
+                tools:backgroundTint="@color/spider_blue"
+                android:backgroundTint="@color/colorPrimary"/>
+
+            <View
+                android:id="@+id/frame_t"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/gradient_top_bottom"
+                tools:backgroundTint="@color/spider_blue"
+                android:backgroundTint="@color/colorPrimary" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/frame_s"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_left_right"
+            android:layout_alignBottom="@id/image_frame"
+            android:backgroundTint="@color/colorPrimary"
+            tools:backgroundTint="@color/spider_blue"
+            android:layout_margin="8dp"/>
+
+        <View
+            android:id="@+id/frame_e"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/gradient_right_left"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_alignBottom="@id/image_frame"
+            tools:backgroundTint="@color/spider_blue"
+            android:layout_margin="8dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frame_c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:contentDescription="@string/title_poster"
+                android:background="#FFFF"
+                tools:background="@color/spider_blue"
+                app:layout_constraintDimensionRatio="H,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:alpha=".2"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/frame_c"
+            android:layout_marginTop="-90dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                tools:text="Homem Aranha de Volta ao Lar"
+                android:textColor="@color/white"
+                android:textSize="21sp"
+                android:fontFamily="@font/product_sans_regular" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="3dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    tools:text="PG-13"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/product_sans_regular" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:paddingTop="5dp"
+                    tools:text="133 min"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/product_sans_regular" />
+
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    tools:text="Ação / Aventura"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/product_sans_regular" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end"
+                    android:baselineAligned="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/product_sans_regular" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="/6"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/product_sans_regular" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
