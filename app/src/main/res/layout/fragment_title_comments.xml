@@ -17,7 +17,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/title_cast"
+                android:text="@string/title_comments"
                 android:textSize="16sp"
                 android:textAlignment="gravity"
                 android:textColor="@color/primaryText"
@@ -30,7 +30,7 @@
                 android:layout_marginTop="4dp">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/cast_recycler"
+                    android:id="@+id/comments_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="16dp"
@@ -50,7 +50,7 @@
                     android:layout_height="24dp"
                     android:background="@drawable/gradient_bottom_top"
                     android:backgroundTint="@color/white"
-                    android:layout_alignBottom="@id/cast_recycler"/>
+                    android:layout_alignBottom="@id/comments_recycler"/>
             </RelativeLayout>
         </LinearLayout>
 
