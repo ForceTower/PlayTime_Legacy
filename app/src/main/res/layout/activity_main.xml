@@ -3,17 +3,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.MainActivity"
+        android:background="@color/white">
 
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="56dp">
         </FrameLayout>
 
-    </LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/colorPrimary"
+            app:elevation="8dp"
+            app:labelVisibilityMode="auto"
+            app:itemHorizontalTranslationEnabled="true"
+            app:itemTextAppearanceActive="@style/AppTheme.BottomNavigation.Active"
+            app:itemTextAppearanceInactive="@style/AppTheme.BottomNavigation.Active"
+            app:menu="@menu/connected_bottom_navigation"
+            app:itemIconTint="@drawable/connected_navigation_colors"
+            app:itemTextColor="@drawable/connected_navigation_colors">
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </RelativeLayout>
 </layout>

@@ -34,4 +34,9 @@
     <string name="app_tagline">Dê o play com seus amigos</string>
     <string name="internal_error">Erro interno</string>
     <string name="invalid_login">Login Inválido</string>
+    <string name="nav_movies">Filmes</string>
+    <string name="nav_series">Séries</string>
+    <string name="nav_search">Buscar</string>
+    <string name="nav_recommendations">Recomendações</string>
+    <string name="nav_watchlist">Minha Lista</string>
 </resources>
