@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +19,28 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
+import com.facebook.login.LoginFragment;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentLandingPageBinding;
+import com.forcetower.playtime.di.Injectable;
+import com.forcetower.playtime.ui.BaseActivity;
 import com.forcetower.playtime.ui.MainActivity;
 import com.forcetower.playtime.ui.UIAlphaFrame;
+import com.forcetower.playtime.ui.auth.AuthNavigation;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.palette.graphics.Palette;
 import timber.log.Timber;
 
-public class LandingPageFragment extends Fragment {
+public class LandingPageFragment extends Fragment implements Injectable {
+    @Inject
+    AuthNavigation navigation;
 
     private FragmentLandingPageBinding binding;
     private UIAlphaFrame frame;
@@ -54,6 +64,7 @@ public class LandingPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_landing_page, container, false);
         frame = new UIAlphaFrame(binding.getRoot());
+        binding.proceed.setOnClickListener(v -> proceedToLogin());
         return binding.getRoot();
     }
 
@@ -108,19 +119,26 @@ public class LandingPageFragment extends Fragment {
     }
 
     private void setStatusBarColor(int color) {
-        ((MainActivity)requireActivity()).setStatusBarCor(color);
+        ((BaseActivity)requireActivity()).setStatusBarColor(color);
     }
 
     private void startRunner(int index) {
         new Handler(Looper.getMainLooper())
                 .postDelayed(() -> {
                     int real = index % urls.length;
-                    prepareGrid(urls[real]);
+                    if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED))
+                        prepareGrid(urls[real]);
+                    else
+                        Timber.d("Delayed finished");
                 }, 5000);
     }
 
     private void fade(ImageView v1, ImageView v2) {
         v1.animate().alpha(0f).setDuration(1000);
         v2.animate().alpha(1f).setDuration(1000);
+    }
+
+    private void proceedToLogin() {
+        navigation.login();
     }
 }

@@ -86,6 +86,7 @@
         </com.bosphere.fadingedgelayout.FadingEdgeLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/proceed"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:cornerRadius="10dp"

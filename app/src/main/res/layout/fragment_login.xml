@@ -8,22 +8,24 @@
         android:background="@color/white"
         android:padding="16dp">
 
-        <TextView
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/help"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_help_connect"
             android:textAlignment="gravity"
             android:textSize="12sp"
             android:fontFamily="@font/product_sans_regular"
-            android:gravity="end"/>
+            android:layout_gravity="end"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
+            android:paddingTop="40dp"
             android:text="@string/login_account"
             android:textColor="@color/primaryText"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:fontFamily="@font/product_sans_regular"/>
 
         <TextView
@@ -31,13 +33,15 @@
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
             android:text="@string/login_account_email"
+            android:textSize="15sp"
             android:fontFamily="@font/product_sans_regular"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp">
+            android:paddingTop="16dp">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_email_hint"
@@ -50,29 +54,32 @@
             android:layout_height="wrap_content"
             android:paddingTop="8dp">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_password_hint"
-                android:inputType="numberPassword"
+                android:inputType="textPassword"
                 android:fontFamily="@font/product_sans_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
         
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:text="@string/login_create_account"
-            android:textSize="12sp"
-            android:textColor="@color/login_button_blue"
-            android:fontFamily="@font/product_sans_regular"/>
-        
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/login"
             android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="@string/login_connect"
             app:backgroundTint="@color/login_button_blue"
             android:fontFamily="@font/product_sans_regular"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/login_create_account"
+            android:textSize="12sp"
+            android:fontFamily="@font/product_sans_regular"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,6 +88,7 @@
             android:gravity="bottom">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/facebook_login"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="@string/login_facebook"

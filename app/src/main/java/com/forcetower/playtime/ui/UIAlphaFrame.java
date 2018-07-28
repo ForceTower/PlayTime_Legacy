@@ -31,7 +31,7 @@ public class UIAlphaFrame {
 
     public void changeAlphaTo(int color) {
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), current, color);
-        colorAnimation.setDuration(250);
+        colorAnimation.setDuration(1000);
 
         colorAnimation.addUpdateListener(animator -> {
             ColorStateList tint = ColorStateList.valueOf((int) animator.getAnimatedValue());
