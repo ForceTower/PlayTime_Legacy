@@ -14,4 +14,11 @@
     <string name="out_of_something">/%1$d</string>
     <string name="title_cast">Elenco</string>
     <string name="title_comments">Comentários</string>
+    <string name="title_seasons">Temporadas</string>
+    <string name="profile_hours">Horas</string>
+    <string name="profile_followers">Seguidores</string>
+    <string name="profile_titles_watched">Assistidos</string>
+    <string name="profile_view_history">Histórico</string>
+    <string name="profile_favorite_titles">Favoritos</string>
+    <string name="profile_edit_information">Editar Perfil</string>
 </resources>

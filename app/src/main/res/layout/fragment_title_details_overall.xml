@@ -176,6 +176,23 @@
                 android:textColor="@color/primaryText"
                 android:fontFamily="@font/product_sans_regular"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/divider"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal"
+                tools:listitem="@layout/item_transmission_network"
+                tools:itemCount="1"
+                android:clipToPadding="false">
+            </androidx.recyclerview.widget.RecyclerView>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
