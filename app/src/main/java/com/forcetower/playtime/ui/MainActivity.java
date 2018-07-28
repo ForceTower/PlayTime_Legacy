@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import static com.forcetower.playtime.utils.ColorUtils.isColorDark;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
 
     @Override

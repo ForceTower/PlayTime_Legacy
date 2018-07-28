@@ -30,8 +30,6 @@ import androidx.fragment.app.Fragment;
 import androidx.palette.graphics.Palette;
 import timber.log.Timber;
 
-import static com.forcetower.playtime.utils.ColorUtils.isColorDark;
-
 public class LandingPageFragment extends Fragment {
 
     private FragmentLandingPageBinding binding;
@@ -78,8 +76,6 @@ public class LandingPageFragment extends Fragment {
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         if (resource instanceof BitmapDrawable) {
                             Palette palette = Palette.from(((BitmapDrawable) resource).getBitmap()).generate();
-                            int dominant = palette.getDominantColor(Color.WHITE);
-                            int lightVib = palette.getLightVibrantColor(Color.WHITE);
                             int vibrant  = palette.getVibrantColor(Color.WHITE);
                             frame.changeAlphaTo(vibrant);
                             setStatusBarColor(vibrant);

@@ -1,13 +1,12 @@
 package com.forcetower.playtime.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.os.Bundle;
 
 import com.forcetower.playtime.R;
 
-public class TitleDetailsActivity extends AppCompatActivity {
+import androidx.databinding.DataBindingUtil;
+
+public class TitleDetailsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

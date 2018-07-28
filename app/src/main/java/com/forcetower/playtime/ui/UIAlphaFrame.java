@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.View;
@@ -37,10 +36,10 @@ public class UIAlphaFrame {
         colorAnimation.addUpdateListener(animator -> {
             ColorStateList tint = ColorStateList.valueOf((int) animator.getAnimatedValue());
             center.setBackgroundTintList(tint);
-            bottom.setBackgroundTintList(tint);
-            top.setBackgroundTintList(tint);
-            start.setBackgroundTintList(tint);
-            end.setBackgroundTintList(tint);
+//            bottom.setBackgroundTintList(tint);
+//            top.setBackgroundTintList(tint);
+//            start.setBackgroundTintList(tint);
+//            end.setBackgroundTintList(tint);
             main.setBackgroundTintList(tint);
         });
 
