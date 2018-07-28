@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        setLightStatusBar(binding.getRoot());
+        setLightStatusBar(getWindow().getDecorView());
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
