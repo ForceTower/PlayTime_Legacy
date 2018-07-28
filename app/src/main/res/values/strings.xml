@@ -29,4 +29,5 @@
     <string name="login_create_account">Usuário novo? Crie sua conta</string>
     <string name="login_connect">Entrar</string>
     <string name="login_facebook">Entrar com Facebook</string>
+    <string name="profile_reviews">Comentários e Avaliações</string>
 </resources>

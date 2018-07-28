@@ -162,11 +162,30 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="8dp"
+                android:layout_height="112dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="@string/profile_reviews"
+                android:textSize="15sp"
+                android:textColor="@color/primaryText"
+                android:fontFamily="@font/product_sans_regular"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="112dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/item_user_posts">
             </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
@@ -180,9 +199,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="8dp"
+                android:layout_height="112dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal">
             </androidx.recyclerview.widget.RecyclerView>
