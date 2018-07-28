@@ -12,6 +12,8 @@ import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.BaseActivity;
 import com.forcetower.playtime.ui.auth.AuthNavigation;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
@@ -63,6 +65,8 @@ public class LoginFragment extends Fragment implements Injectable {
     }
 
     private void onLogin() {
-
+        String username = Objects.requireNonNull(binding.etEmail.getText()).toString();
+        String password = Objects.requireNonNull(binding.etPassword.getText()).toString();
+        navigation.connect(username, password);
     }
 }

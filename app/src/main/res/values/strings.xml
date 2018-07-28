@@ -32,4 +32,6 @@
     <string name="profile_reviews">Comentários e Avaliações</string>
     <string name="login_continue">Continuar</string>
     <string name="app_tagline">Dê o play com seus amigos</string>
+    <string name="internal_error">Erro interno</string>
+    <string name="invalid_login">Login Inválido</string>
 </resources>

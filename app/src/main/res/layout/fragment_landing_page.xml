@@ -29,7 +29,9 @@
                     android:layout_height="match_parent"
                     tools:src="@drawable/spider_man_portrait"
                     android:scaleType="centerCrop"
-                    android:contentDescription="@string/title_poster"/>
+                    android:contentDescription="@string/title_poster"
+                    android:alpha="0"
+                    tools:alpha="1"/>
 
                 <ImageView
                     android:id="@+id/title_image_true"
@@ -37,7 +39,8 @@
                     android:layout_height="match_parent"
                     tools:src="@drawable/spider_man_portrait"
                     android:scaleType="centerCrop"
-                    android:contentDescription="@string/title_poster"/>
+                    android:contentDescription="@string/title_poster"
+                    android:alpha="0"/>
 
                 <View
                     android:id="@+id/frame_c"

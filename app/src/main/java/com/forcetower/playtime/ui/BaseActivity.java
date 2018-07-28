@@ -33,4 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(color);
         view.setSystemUiVisibility(flags);
     }
+
+    public void showSnack(String string) {}
 }
