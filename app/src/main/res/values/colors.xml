@@ -11,6 +11,7 @@
     <color name="spider_blue">#42a5f5</color>
 
     <color name="edit_profile_blue">#42a5f5</color>
+    <color name="login_button_blue">#1e88e5</color>
 
     <color name="layout_border_color">#e0e0e0</color>
     <color name="title_score_color">#ffa000</color>

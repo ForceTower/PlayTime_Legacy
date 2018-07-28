@@ -21,4 +21,12 @@
     <string name="profile_view_history">Histórico</string>
     <string name="profile_favorite_titles">Favoritos</string>
     <string name="profile_edit_information">Editar Perfil</string>
+    <string name="login_help_connect">Ajuda</string>
+    <string name="login_account">Entrar na conta</string>
+    <string name="login_account_email">Faça login usando seu email e senha</string>
+    <string name="login_email_hint">Digite seu email</string>
+    <string name="login_password_hint">Digite sua senha</string>
+    <string name="login_create_account">Usuário novo? Crie sua conta</string>
+    <string name="login_connect">Entrar</string>
+    <string name="login_facebook">Entrar com Facebook</string>
 </resources>
