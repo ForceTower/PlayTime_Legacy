@@ -63,14 +63,16 @@
             android:paddingTop="4dp"
             android:text="@string/login_create_account"
             android:textSize="12sp"
-            android:textColor="@color/login_button_blue"/>
+            android:textColor="@color/login_button_blue"
+            android:fontFamily="@font/product_sans_regular"/>
         
         <com.google.android.material.button.MaterialButton
             android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="@string/login_connect"
-            app:backgroundTint="@color/login_button_blue"/>
+            app:backgroundTint="@color/login_button_blue"
+            android:fontFamily="@font/product_sans_regular"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,7 +85,8 @@
                 android:layout_height="50dp"
                 android:text="@string/login_facebook"
                 app:icon="@drawable/com_facebook_button_icon_white"
-                app:backgroundTint="@color/com_facebook_button_background_color" />
+                app:backgroundTint="@color/com_facebook_button_background_color"
+                android:fontFamily="@font/product_sans_regular"/>
         </LinearLayout>
 
     </LinearLayout>

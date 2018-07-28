@@ -8,7 +8,9 @@
 
     <color name="primaryText">#212121</color>
     <color name="secondaryText">#757575</color>
+
     <color name="spider_blue">#42a5f5</color>
+    <color name="spider_red">#ff1744</color>
 
     <color name="edit_profile_blue">#42a5f5</color>
     <color name="login_button_blue">#1e88e5</color>

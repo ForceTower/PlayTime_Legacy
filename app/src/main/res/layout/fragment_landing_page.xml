@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="16dp"
+        tools:background="@color/spider_blue">
+
+        <ImageView
+            android:id="@+id/title_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@drawable/spider_man_portrait"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/title_poster"/>
+
+        <ImageView
+            android:id="@+id/title_image_true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@drawable/spider_man_portrait"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/title_poster"/>
+
+        <View
+            android:id="@+id/frame_b"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/gradient_bottom_top"
+            tools:backgroundTint="@color/spider_blue"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_alignParentBottom="true"/>
+
+        <View
+            android:id="@+id/frame_t"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/gradient_top_bottom"
+            tools:backgroundTint="@color/spider_blue"
+            android:backgroundTint="@color/colorPrimary" />
+
+        <View
+            android:id="@+id/frame_s"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_left_right"
+            android:layout_alignBottom="@id/image_frame"
+            android:backgroundTint="@color/colorPrimary"
+            tools:backgroundTint="@color/spider_blue" />
+
+        <View
+            android:id="@+id/frame_e"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/gradient_right_left"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_alignBottom="@id/image_frame"
+            tools:backgroundTint="@color/spider_blue" />
+
+        <View
+            android:id="@+id/frame_c"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:backgroundTint="@color/spider_blue"
+            android:background="@color/white"
+            android:alpha=".5"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cornerRadius="10dp"
+            android:layout_alignParentBottom="true"
+            app:backgroundTint="@color/spider_red"
+            android:text="@string/login_continue"
+            android:fontFamily="@font/product_sans_regular"/>
+
+        <LinearLayout
+            android:id="@+id/logo_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/play"
+                android:textColor="@color/colorAccent"
+                android:textSize="36sp"
+                android:fontFamily="@font/product_sans_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                android:fontFamily="@font/product_sans_regular"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logo_layout"
+            android:padding="8dp"
+            android:text="@string/app_tagline"
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:fontFamily="@font/product_sans_regular"
+            android:gravity="center"/>
+    </RelativeLayout>
+</layout>
