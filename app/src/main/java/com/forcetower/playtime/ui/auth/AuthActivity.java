@@ -2,6 +2,7 @@ package com.forcetower.playtime.ui.auth;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.forcetower.playtime.R;
@@ -49,9 +50,14 @@ public class AuthActivity extends BaseActivity implements HasSupportFragmentInje
         snackbar.setAction(android.R.string.ok, view -> snackbar.dismiss());
         snackbar.setActionTextColor(getColor(R.color.colorAccent));
 
-        TextView tv = (snackbar.getView()).findViewById(com.google.android.material.R.id.snackbar_text);
         Typeface font = ResourcesCompat.getFont(this, R.font.product_sans_regular);
+
+        View snackbarView = snackbar.getView();
+        TextView tv = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
         tv.setTypeface(font);
+
+        TextView at = snackbarView.findViewById(com.google.android.material.R.id.snackbar_action);
+        at.setTypeface(font, Typeface.BOLD);
 
         snackbar.show();
     }
