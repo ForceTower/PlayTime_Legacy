@@ -14,6 +14,7 @@ import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.ActivityTitleDetailsBinding;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.ui.fragments.TitleCastFragment;
+import com.forcetower.playtime.ui.fragments.TitleCommentsFragment;
 import com.forcetower.playtime.ui.fragments.TitleDetailsOverviewFragment;
 import com.forcetower.playtime.utils.AnimUtils;
 import com.forcetower.playtime.utils.MockUtils;
@@ -77,7 +78,10 @@ public class TitleDetailsActivity extends BaseActivity {
         Fragment cast = new TitleCastFragment();
         cast.setArguments(bundle);
 
-        adapter.submitList(Arrays.asList(overview, cast));
+        Fragment comments = new TitleCommentsFragment();
+        comments.setArguments(bundle);
+
+        adapter.submitList(Arrays.asList(overview, cast, comments));
     }
 
     private void prepareImageAndColors(Title title) {

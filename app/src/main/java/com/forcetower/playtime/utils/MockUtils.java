@@ -3,6 +3,7 @@ package com.forcetower.playtime.utils;
 import android.graphics.Color;
 
 import com.forcetower.playtime.db.model.Cast;
+import com.forcetower.playtime.db.model.Comment;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 
@@ -140,5 +141,14 @@ public class MockUtils {
         cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/6WPolY7Wd3GMiuN1dPxYZX7liik.jpg", "Zendaya", "Michelle \"MJ\" Jones"));
         cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/k3rnbeFB4GEp9vOvgdZ33M2IEHq.jpg", "Laura Harrier", "Liz Toomes"));
         return cast;
+    }
+
+    public static List<Comment> getComments() {
+        List<Comment> comments = new ArrayList<>();
+        comments.add(new Comment("Eu achei muito legal", "João Paulo", "https://avatars1.githubusercontent.com/u/9421614?s=460&v=4", 0));
+        comments.add(new Comment("Filme massa! Recomendo para todo mundo", "Nathan Almeida", "https://avatars0.githubusercontent.com/u/9421457?s=460&v=4", 0));
+        comments.add(new Comment("Muito bom, o diretor e escritores estão de parabens por esta belissima obra de arte", "Marcelo Bião", "https://avatars3.githubusercontent.com/u/8891971?s=460&v=4", 0));
+
+        return comments;
     }
 }
