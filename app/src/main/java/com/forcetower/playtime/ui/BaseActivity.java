@@ -4,9 +4,13 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
+import com.forcetower.playtime.R;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import timber.log.Timber;
 
 import static com.forcetower.playtime.utils.ColorUtils.isColorDark;
@@ -35,4 +39,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showSnack(String string) {}
+
+    protected NavController getNavController() {
+        return Navigation.findNavController(this, R.id.nav_host_fragment);
+    }
 }

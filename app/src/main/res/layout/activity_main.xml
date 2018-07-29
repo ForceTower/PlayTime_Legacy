@@ -10,12 +10,19 @@
         tools:context=".ui.MainActivity"
         android:background="@color/white">
 
-        <FrameLayout
-            android:id="@+id/container"
+        <include
+            android:id="@+id/toolbar_include"
+            layout="@layout/toolbar_default"/>
+
+        <fragment
+            android:id="@+id/nav_host_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="56dp">
-        </FrameLayout>
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/connected_nav_graph"
+            app:defaultNavHost="true"
+            android:layout_below="@id/toolbar_include"
+            android:layout_marginBottom="56dp"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Title {
     @PrimaryKey(autoGenerate = true)
-    private int uid;
+    private long uid;
     private String name;
     private String image;
     private String trailer;
@@ -24,11 +24,11 @@ public class Title {
         this.releaseDate = releaseDate;
     }
 
-    public int getUid() {
+    public long getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(long uid) {
         this.uid = uid;
     }
 

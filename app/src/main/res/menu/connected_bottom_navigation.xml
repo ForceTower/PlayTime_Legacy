@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_movies"
+        android:id="@+id/movie_list"
         android:title="@string/nav_movies"
         android:icon="@drawable/ic_film_black_60dp"/>
 
     <item
-        android:id="@+id/nav_series"
+        android:id="@+id/series_list"
         android:title="@string/nav_series"
         android:icon="@drawable/ic_tv_black_60dp"/>
 
     <item
-        android:id="@+id/nav_search"
+        android:id="@+id/search_page"
         android:title="@string/nav_search"
         android:icon="@drawable/ic_search_black_24dp"/>
 
     <item
-        android:id="@+id/nav_recommendations"
+        android:id="@+id/recommendations"
         android:title="@string/nav_recommendations"
         android:icon="@drawable/ic_recommendation_black_60dp"/>
 
     <item
-        android:id="@+id/nav_watchlist"
+        android:id="@+id/watchlist"
         android:title="@string/nav_watchlist"
         android:icon="@drawable/ic_wishlist_black_60dp"/>
 

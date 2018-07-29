@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.forcetower.playtime.utils.DateUtils"/>
+        <variable
+            name="watchlist"
+            type="com.forcetower.playtime.db.relations.TitleWatchlist"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/title_image"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/title_poster"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{watchlist.title.image}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="10:15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/spider_man_portrait" />
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@{watchlist.title.name}"
+            android:textColor="@color/primaryText"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/title_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Homem Aranha de Volta ao Lar" />
+
+        <TextView
+            android:id="@+id/added_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@{@string/added_format(DateUtils.formatFullDate(watchlist.added))}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/title_image"
+            app:layout_constraintTop_toBottomOf="@+id/title_name"
+            tools:text="Adicionado: 24/07/2018" />
+
+        <TextView
+            android:id="@+id/title_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@{@string/title_score(watchlist.title.rating)}"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/added_date"
+            app:layout_constraintStart_toEndOf="@+id/added_date"
+            tools:text="6.1" />
+
+        <TextView
+            android:id="@+id/out_of_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/out_of_10"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/title_rating"
+            app:layout_constraintStart_toEndOf="@+id/title_rating" />
+
+        <TextView
+            android:id="@+id/title_synopsis"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/product_sans_regular"
+            android:maxLines="5"
+            android:text="@{watchlist.title.description}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/title_image"
+            app:layout_constraintTop_toBottomOf="@+id/added_date"
+            tools:text="Neste novo filme, temos o Homi Aranha fazendo mais travessuras. Ele realmente está se superando neste novo filme. Vamos todos, venham ver que mundo incrível. Não perca esta grande aventura do héroi favorito da Marvel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

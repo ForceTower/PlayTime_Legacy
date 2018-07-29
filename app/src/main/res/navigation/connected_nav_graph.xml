@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/connected_nav_graph.xml"
+    app:startDestination="@id/movie_list">
+
+    <fragment
+        android:id="@+id/movie_list"
+        android:name="com.forcetower.playtime.ui.fragments.TitleListFragment"
+        android:label="movies"
+        tools:layout="@layout/fragment_title_list"/>
+
+    <fragment
+        android:id="@+id/series_list"
+        android:name="com.forcetower.playtime.ui.fragments.TitleListFragment"
+        android:label="series"
+        tools:layout="@layout/fragment_title_list" />
+
+    <fragment
+        android:id="@+id/recommendations"
+        android:name="com.forcetower.playtime.ui.fragments.RecommendationsFragment"
+        android:label="recommendations"
+        tools:layout="@layout/fragment_recommendations" />
+
+    <fragment
+        android:id="@+id/watchlist"
+        android:name="com.forcetower.playtime.ui.fragments.WatchlistFragment"
+        android:label="watchlist"
+        tools:layout="@layout/fragment_watchlist" />
+</navigation>

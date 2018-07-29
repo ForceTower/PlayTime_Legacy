@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.forcetower.playtime.ui.NavigationFragment;
 import com.forcetower.playtime.utils.MockUtils;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentRecommendationsBinding;
@@ -22,7 +23,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import timber.log.Timber;
 
-public class RecommendationsFragment extends Fragment {
+public class RecommendationsFragment extends NavigationFragment {
     private FragmentRecommendationsBinding binding;
     private RecommendationsAdapter adapter;
 
@@ -30,7 +31,7 @@ public class RecommendationsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recommendations, container, false);
-        Timber.d("onCreateView()");
+        getToolbar().setElevation(0);
         setupRecommendations();
         return binding.getRoot();
     }
@@ -95,7 +96,6 @@ public class RecommendationsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Timber.d("onActivityCreated()");
-        Picasso.with(requireContext()).load("https://avatars1.githubusercontent.com/u/9421614?s=460&v=4").into(binding.toolbarInclude.userImage);
         if (savedInstanceState == null) {
             List<Title> titles = MockUtils.getAll();
             fillAdapter(titles);
