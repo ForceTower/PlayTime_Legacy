@@ -2,6 +2,7 @@ package com.forcetower.playtime.utils;
 
 import android.graphics.Color;
 
+import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 
@@ -127,5 +128,17 @@ public class MockUtils {
         title.setLikes(49473);
 
         return title;
+    }
+
+    public static List<Cast> getCast() {
+        List<Cast> cast = new ArrayList<>();
+        cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/dO9FYcPPShhiYQ9D50Takd2W8xo.jpg", "Tom Holland", "Peter Parker / Spider-Man"));
+        cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/myVdrYNGTgqunLfUSaM8DuVD7DL.jpg", "Michael Keaton", "Adrian Toomes / The Vulture"));
+        cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/1YjdSym1jTG7xjHSI0yGGWEsw5i.jpg", "Robert Downey Jr.", "Tony Stark / Iron Man"));
+        cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/l87UKhZ1ethWmn8lksmLZ2LcQJ1.jpg", "Marisa Tomei", "May Parker"));
+        cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/sJSGJwGa3hjMlJNUCxF7wQwo7fb.jpg", "Jon Favreau", "Harold \"Happy\" Hogan"));
+        cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/6WPolY7Wd3GMiuN1dPxYZX7liik.jpg", "Zendaya", "Michelle \"MJ\" Jones"));
+        cast.add(new Cast(1, "https://image.tmdb.org/t/p/w138_and_h175_face/k3rnbeFB4GEp9vOvgdZ33M2IEHq.jpg", "Laura Harrier", "Liz Toomes"));
+        return cast;
     }
 }

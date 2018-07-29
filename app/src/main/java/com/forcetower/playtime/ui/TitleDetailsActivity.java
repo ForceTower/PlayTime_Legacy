@@ -13,6 +13,7 @@ import com.bumptech.glide.request.target.Target;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.ActivityTitleDetailsBinding;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.ui.fragments.TitleCastFragment;
 import com.forcetower.playtime.ui.fragments.TitleDetailsOverviewFragment;
 import com.forcetower.playtime.utils.AnimUtils;
 import com.forcetower.playtime.utils.MockUtils;
@@ -27,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.palette.graphics.Palette;
+import androidx.viewpager.widget.ViewPager;
 
 public class TitleDetailsActivity extends BaseActivity {
     private ActivityTitleDetailsBinding binding;
@@ -46,6 +48,13 @@ public class TitleDetailsActivity extends BaseActivity {
     private void setupViewPager() {
         adapter = new TitleDetailsAdapter(getSupportFragmentManager());
         binding.detailsPager.setAdapter(adapter);
+        binding.detailsPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.spacing_normal));
+        binding.detailsPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                binding.currentPage.setText(getString(R.string.details_current_page, position + 1));
+            }
+        });
     }
 
     private void setupTitle(Title title) {
@@ -65,7 +74,10 @@ public class TitleDetailsActivity extends BaseActivity {
         Fragment overview = new TitleDetailsOverviewFragment();
         overview.setArguments(bundle);
 
-        adapter.submitList(Arrays.asList(overview));
+        Fragment cast = new TitleCastFragment();
+        cast.setArguments(bundle);
+
+        adapter.submitList(Arrays.asList(overview, cast));
     }
 
     private void prepareImageAndColors(Title title) {

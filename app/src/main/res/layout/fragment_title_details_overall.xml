@@ -93,7 +93,8 @@
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
                                     android:src="@android:drawable/ic_media_play"
-                                    android:layout_centerInParent="true"/>
+                                    android:layout_centerInParent="true"
+                                    android:contentDescription="@string/watch_trailer"/>
                             </RelativeLayout>
                         </androidx.cardview.widget.CardView>
                     </androidx.constraintlayout.widget.ConstraintLayout>
