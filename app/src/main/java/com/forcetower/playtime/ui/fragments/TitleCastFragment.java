@@ -9,6 +9,7 @@ import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentTitleCastBinding;
 import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.ui.adapter.CastAdapter;
+import com.forcetower.playtime.ui.widget.DividerItemDecorator;
 import com.forcetower.playtime.utils.MockUtils;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class TitleCastFragment extends Fragment {
         binding.castRecycler.setAdapter(adapter);
         binding.castRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.castRecycler.setItemAnimator(new DefaultItemAnimator());
-        binding.castRecycler.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
+        binding.castRecycler.addItemDecoration(new DividerItemDecorator(requireContext(), R.drawable.divider));
     }
 
     @Override
