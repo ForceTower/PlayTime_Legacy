@@ -40,4 +40,7 @@
     <string name="nav_recommendations">Recomendações</string>
     <string name="nav_watchlist">Minha Lista</string>
     <string name="added_format">Adicionado %1$s</string>
+    <string name="title_runtime_format">%1$d min</string>
+    <string name="details_current_page">%1$d</string>
+    <string name="title_like_format">%1$d</string>
 </resources>

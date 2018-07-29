@@ -1,5 +1,6 @@
 package com.forcetower.playtime.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +8,10 @@ import android.view.ViewGroup;
 
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentWatchlistBinding;
-import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 import com.forcetower.playtime.ui.NavigationFragment;
+import com.forcetower.playtime.ui.TitleClickListener;
+import com.forcetower.playtime.ui.TitleDetailsActivity;
 import com.forcetower.playtime.ui.adapter.WatchlistAdapter;
 import com.forcetower.playtime.utils.MockUtils;
 
@@ -39,6 +41,7 @@ public class WatchlistFragment extends NavigationFragment {
 
     private void setupRecycler() {
         adapter = new WatchlistAdapter();
+        adapter.setTitleClickListener(titleClickListener);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         binding.watchlistRecycler.setAdapter(adapter);
         binding.watchlistRecycler.setLayoutManager(layoutManager);
@@ -66,4 +69,9 @@ public class WatchlistFragment extends NavigationFragment {
     private void populateAdapter(List<TitleWatchlist> data) {
         adapter.submitList(data);
     }
+
+    private TitleClickListener titleClickListener = (title, position, view) -> {
+        Intent intent = new Intent(requireContext(), TitleDetailsActivity.class);
+        startActivity(intent);
+    };
 }

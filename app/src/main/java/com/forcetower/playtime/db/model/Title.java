@@ -2,6 +2,7 @@ package com.forcetower.playtime.db.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import timber.log.Timber;
 
 @Entity
 public class Title {
@@ -15,6 +16,14 @@ public class Title {
     private String description;
     private String genres;
     private int watchCount;
+    private String classification;
+    private int runtime;
+    private String imageHorizontal;
+    private boolean movie;
+    private String thumbnail;
+    private int likes;
+    private int colorPalette;
+    private boolean hasColorPalette;
 
     public Title(String name, String image, String trailer, float rating, String releaseDate) {
         this.name = name;
@@ -94,5 +103,84 @@ public class Title {
 
     public void setWatchCount(int watchCount) {
         this.watchCount = watchCount;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    public String getImageHorizontal() {
+        return imageHorizontal;
+    }
+
+    public void setImageHorizontal(String imageHorizontal) {
+        this.imageHorizontal = imageHorizontal;
+    }
+
+    public boolean isMovie() {
+        return movie;
+    }
+
+    public void setMovie(boolean movie) {
+        this.movie = movie;
+    }
+
+    public String getThumbnail() {
+        if (thumbnail == null && trailer != null) {
+            boolean hasV = trailer.contains("v=");
+            String videoId;
+            if (hasV) {
+                int index = trailer.lastIndexOf("v=");
+                videoId = trailer.substring(index + 2);
+            } else {
+                int index = trailer.lastIndexOf("/");
+                videoId = trailer.substring(index + 1);
+            }
+
+            Timber.d("Video ID: " + videoId);
+            boolean hasSlash = videoId.endsWith("/");
+            this.thumbnail = "http://img.youtube.com/vi/" + videoId + (hasSlash ? "" : "/") + "0.jpg";
+        }
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setColorPalette(int colorPalette) {
+        this.colorPalette = colorPalette;
+    }
+
+    public int getColorPalette() {
+        return colorPalette;
+    }
+
+    public void setHasColorPalette(boolean hasColorPalette) {
+        this.hasColorPalette = hasColorPalette;
+    }
+
+    public boolean getHasColorPalette() {
+        return hasColorPalette;
     }
 }

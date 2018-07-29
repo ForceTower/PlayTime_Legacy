@@ -12,26 +12,33 @@ import com.forcetower.playtime.R;
 
 public class UIAlphaFrame {
     private final View center;
-    private final View bottom;
-    private final View top;
-    private final View start;
-    private final View end;
+//    private final View bottom;
+//    private final View top;
+//    private final View start;
+//    private final View end;
     private final View main;
-
+    private final int duration;
     private int current = Color.WHITE;
 
     public UIAlphaFrame(View root) {
         center = root.findViewById(R.id.frame_c);
-        bottom = root.findViewById(R.id.frame_b);
-        top    = root.findViewById(R.id.frame_t);
-        start  = root.findViewById(R.id.frame_s);
-        end    = root.findViewById(R.id.frame_e);
+//        bottom = root.findViewById(R.id.frame_b);
+//        top    = root.findViewById(R.id.frame_t);
+//        start  = root.findViewById(R.id.frame_s);
+//        end    = root.findViewById(R.id.frame_e);
         main   = root;
+        duration = 1000;
+    }
+
+    public UIAlphaFrame(View root, int duration) {
+        center = root.findViewById(R.id.frame_c);
+        main   = root;
+        this.duration = duration;
     }
 
     public void changeAlphaTo(int color) {
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), current, color);
-        colorAnimation.setDuration(1000);
+        colorAnimation.setDuration(duration);
 
         colorAnimation.addUpdateListener(animator -> {
             ColorStateList tint = ColorStateList.valueOf((int) animator.getAnimatedValue());

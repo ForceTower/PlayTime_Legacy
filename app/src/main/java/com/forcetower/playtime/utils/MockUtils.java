@@ -1,5 +1,7 @@
 package com.forcetower.playtime.utils;
 
+import android.graphics.Color;
+
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 
@@ -7,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by João Paulo on 31/05/2018.
@@ -105,5 +106,26 @@ public class MockUtils {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, random - 200);
         return calendar.getTimeInMillis();
+    }
+
+    public static Title getTitle() {
+        Title title = new Title(
+                "Homem-Aranha: De Volta ao Lar",
+                "https://image.tmdb.org/t/p/original/q2BrsPEztd0L1cueuFIZakHObl7.jpg",
+                "https://youtu.be/KAemcLqWLH4",
+                8.9f,
+                "07 de Julho de 2017");
+
+        title.setDescription("Depois de atuar ao lado dos Vingadores, chegou a hora do pequeno Peter Parker (Tom Holland) voltar para casa e para a sua vida, já não mais tão normal. Lutando diariamente contra pequenos crimes nas redondezas, ele pensa ter encontrado a missão de sua vida quando o terrível vilão Abutre (Michael Keaton) surge amedrontando a cidade. O problema é que a tarefa não será tão fácil como ele imaginava.");
+        title.setRuntime(133);
+        title.setClassification("PG-13");
+        title.setGenres("Ação / Aventura");
+        title.setMovie(true);
+        title.setImageHorizontal("https://image.tmdb.org/t/p/original/tPpYGm2mVecue7Bk3gNVoSPA5qn.jpg");
+        title.setColorPalette(Color.parseColor("#42a5f5"));
+        title.setHasColorPalette(true);
+        title.setLikes(49473);
+
+        return title;
     }
 }
