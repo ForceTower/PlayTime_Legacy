@@ -65,5 +65,6 @@ public class SplashFragment extends NavigationFragment implements Injectable {
     private void connected() {
         Intent intent = new Intent(requireContext(), MainActivity.class);
         startActivity(intent);
+        requireActivity().finish();
     }
 }

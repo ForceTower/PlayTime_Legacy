@@ -23,6 +23,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 @Module(includes = ViewModelModule.class)
 public class AppModule {
@@ -37,6 +38,7 @@ public class AppModule {
     PlayDatabase provideDatabase(PlayApplication application) {
         int value = (int) (Math.random() * 3500);
         String random = "play_database_" + value + ".db";
+        Timber.d("Database: " + random);
         return Room.databaseBuilder(application, PlayDatabase.class, BuildConfig.DEBUG ? random : "play_database.db")
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()

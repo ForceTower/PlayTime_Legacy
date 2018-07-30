@@ -64,4 +64,5 @@
     <string name="login_failed">Login falhou</string>
     <string name="you_need_to_allow_all_features">Você precisa permitir todas as funções</string>
     <string name="facebook_login_error">Login com Facebook falhou</string>
+    <string name="invalid_credentials">Credenciais Incorretas</string>
 </resources>

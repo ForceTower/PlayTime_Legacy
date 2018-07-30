@@ -86,7 +86,8 @@ public class SigningInFragment extends NavigationFragment implements Injectable 
             case ERROR:
                 Timber.e("Login failed");
                 Timber.e("Resource status: " + resource.message + " --> " + resource.code);
-                showSnack(getString(R.string.login_failed));
+                if (resource.code != 401) showSnack(getString(R.string.login_failed));
+                else showSnack(getString(R.string.invalid_credentials));
                 requireNavigation().popBackStack();
                 break;
             case LOADING:
