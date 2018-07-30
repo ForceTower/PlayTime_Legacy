@@ -1,13 +1,25 @@
 package com.forcetower.playtime.db.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class User {
+    @SerializedName(value = "id")
+    @PrimaryKey(autoGenerate = true)
     private long uid;
+    private String username;
     private String name;
     private String subtitle;
+    @SerializedName(value = "image_url")
     private String image;
     private int hours;
+    @SerializedName(value = "watch_count")
     private int watchCount;
     private int friends;
+    private boolean me;
 
     public User(String name, String subtitle, String image, int hours, int watchCount, int friends) {
         this.name = name;
@@ -101,5 +113,21 @@ public class User {
         result = 31 * result + watchCount;
         result = 31 * result + friends;
         return result;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public boolean isMe() {
+        return me;
+    }
+
+    public void setMe(boolean me) {
+        this.me = me;
     }
 }

@@ -5,15 +5,32 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.forcetower.playtime.R;
+import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.databinding.ActivityMainBinding;
+import com.forcetower.playtime.db.model.User;
+import com.forcetower.playtime.vm.AccountViewModel;
+import com.forcetower.playtime.vm.PlayViewModelFactory;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.ui.NavigationUI;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+import timber.log.Timber;
 
-public class MainActivity extends BaseActivity implements ToolbarActivity {
+public class MainActivity extends BaseActivity implements ToolbarActivity, HasSupportFragmentInjector {
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
+    @Inject
+    PlayViewModelFactory viewModelFactory;
+
     private ActivityMainBinding binding;
 
     @Override
@@ -23,9 +40,6 @@ public class MainActivity extends BaseActivity implements ToolbarActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setStatusBarColor(Color.WHITE);
-        Picasso.with(this)
-                .load("https://avatars1.githubusercontent.com/u/9421614?s=460&v=4")
-                .into(binding.toolbarInclude.userImage);
 
         NavigationUI.setupWithNavController(binding.bottomNavigation, getNavController());
         binding.toolbarInclude.userImage.setOnClickListener(v -> {
@@ -35,6 +49,22 @@ public class MainActivity extends BaseActivity implements ToolbarActivity {
                     getString(R.string.user_image_transition)).toBundle();
             startActivity(intent, bundle);
         });
+
+        prepareViewModel();
+    }
+
+    private void prepareViewModel() {
+        AccountViewModel accountViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(AccountViewModel.class);
+        accountViewModel.getMe().observe(this, this::onReceiveProfile);
+    }
+
+    private void onReceiveProfile(Resource<User> resource) {
+        if (resource.data != null) {
+            Timber.d("Connected as " + resource.data.getName());
+            String image = resource.data.getImage();
+            Picasso.with(this).load(image).into(binding.toolbarInclude.userImage);
+        }
     }
 
     @Override
@@ -45,5 +75,10 @@ public class MainActivity extends BaseActivity implements ToolbarActivity {
     @Override
     public Toolbar getToolbar() {
         return binding.toolbarInclude.toolbar;
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentInjector;
     }
 }
