@@ -23,8 +23,6 @@ import timber.log.Timber;
 
 public class AuthActivity extends BaseActivity implements HasSupportFragmentInjector {
     @Inject
-    AuthNavigation navigation;
-    @Inject
     DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     private ActivityAuthBinding binding;
@@ -33,10 +31,11 @@ public class AuthActivity extends BaseActivity implements HasSupportFragmentInje
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_auth);
+    }
 
-        if (savedInstanceState == null) {
-            navigation.loading();
-        }
+    @Override
+    public boolean onSupportNavigateUp() {
+        return getNavController().navigateUp();
     }
 
     @Override

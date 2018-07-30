@@ -10,7 +10,7 @@ import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentLoginBinding;
 import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.BaseActivity;
-import com.forcetower.playtime.ui.auth.AuthNavigation;
+import com.forcetower.playtime.ui.NavigationFragment;
 
 import java.util.Objects;
 
@@ -22,10 +22,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import timber.log.Timber;
 
-public class LoginFragment extends Fragment implements Injectable {
-    @Inject
-    AuthNavigation navigation;
-
+public class LoginFragment extends NavigationFragment implements Injectable {
     private FragmentLoginBinding binding;
 
     @Nullable
@@ -67,6 +64,10 @@ public class LoginFragment extends Fragment implements Injectable {
     private void onLogin() {
         String username = Objects.requireNonNull(binding.etEmail.getText()).toString();
         String password = Objects.requireNonNull(binding.etPassword.getText()).toString();
-        navigation.connect(username, password);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        bundle.putString("password", password);
+        requireNavigation().navigate(R.id.action_login_connecting, bundle);
     }
 }

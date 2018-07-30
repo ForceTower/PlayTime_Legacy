@@ -1,5 +1,6 @@
 package com.forcetower.playtime.ui.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +13,8 @@ import android.view.ViewGroup;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.BaseActivity;
-import com.forcetower.playtime.ui.auth.AuthNavigation;
+import com.forcetower.playtime.ui.MainActivity;
+import com.forcetower.playtime.ui.NavigationFragment;
 
 import javax.inject.Inject;
 
@@ -20,9 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class SplashFragment extends Fragment implements Injectable {
-    @Inject
-    AuthNavigation navigation;
+public class SplashFragment extends NavigationFragment implements Injectable {
 
     @Nullable
     @Override
@@ -44,10 +44,11 @@ public class SplashFragment extends Fragment implements Injectable {
     }
 
     private void login() {
-        navigation.landing();
+        requireNavigation().navigate(R.id.action_splash_landing);
     }
 
     private void connected() {
-        //TODO Handle connected state properly
+        Intent intent = new Intent(requireContext(), MainActivity.class);
+        startActivity(intent);
     }
 }

@@ -9,11 +9,14 @@
         tools:context=".ui.auth.AuthActivity"
         android:background="@color/white">
 
-        <FrameLayout
-            android:id="@+id/container"
+        <fragment
+            android:id="@+id/auth_host_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </FrameLayout>
+            android:layout_height="match_parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/auth_nav_graph"
+            app:defaultNavHost="true"
+            android:layout_below="@id/toolbar_include" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/snack"

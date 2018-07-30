@@ -13,7 +13,7 @@ import com.forcetower.playtime.R;
 import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.BaseActivity;
 import com.forcetower.playtime.ui.MainActivity;
-import com.forcetower.playtime.ui.auth.AuthNavigation;
+import com.forcetower.playtime.ui.NavigationFragment;
 
 import javax.inject.Inject;
 
@@ -24,10 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import static com.forcetower.playtime.utils.StringUtils.validString;
 
-public class SigningInFragment extends Fragment implements Injectable {
-    @Inject
-    AuthNavigation navigation;
-
+public class SigningInFragment extends NavigationFragment implements Injectable {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,14 +49,16 @@ public class SigningInFragment extends Fragment implements Injectable {
     private void doLogin(String username, String password) {
         if (!validString(username) || !validString(password)) {
             ((BaseActivity) requireActivity()).showSnack(getString(R.string.invalid_login));
-            navigation.popBackStack();
+            requireNavigation().popBackStack();
         } else {
             new Handler(Looper.getMainLooper()).postDelayed(this::connected, 4000);
         }
     }
 
     private void connected() {
-        navigation.startActivity(requireContext(), MainActivity.class);
+        Intent intent = new Intent(requireContext(), MainActivity.class);
+        startActivity(intent);
+
         requireActivity().finish();
     }
 

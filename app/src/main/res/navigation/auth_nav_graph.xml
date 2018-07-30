@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/splash">
+
+    <fragment
+        android:id="@+id/splash"
+        android:name="com.forcetower.playtime.ui.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splash_landing"
+            app:destination="@id/landing"
+            app:launchSingleTop="true"
+            app:clearTask="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/landing"
+        android:name="com.forcetower.playtime.ui.fragments.LandingPageFragment"
+        android:label="fragment_landing_page"
+        tools:layout="@layout/fragment_landing_page" >
+        <action
+            android:id="@+id/action_landing_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/landing" />
+    </fragment>
+    <fragment
+        android:id="@+id/login"
+        android:name="com.forcetower.playtime.ui.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_connecting"
+            app:destination="@id/connecting" />
+    </fragment>
+    <fragment
+        android:id="@+id/connecting"
+        android:name="com.forcetower.playtime.ui.fragments.SigningInFragment"
+        android:label="fragment_signing_in"
+        tools:layout="@layout/fragment_signing_in" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+    </fragment>
+</navigation>

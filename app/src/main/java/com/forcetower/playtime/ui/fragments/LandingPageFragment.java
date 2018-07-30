@@ -1,13 +1,11 @@
 package com.forcetower.playtime.ui.fragments;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +17,12 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
-import com.facebook.login.LoginFragment;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentLandingPageBinding;
 import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.BaseActivity;
-import com.forcetower.playtime.ui.MainActivity;
+import com.forcetower.playtime.ui.NavigationFragment;
 import com.forcetower.playtime.ui.UIAlphaFrame;
-import com.forcetower.playtime.ui.auth.AuthNavigation;
 
 import javax.inject.Inject;
 
@@ -38,10 +34,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.palette.graphics.Palette;
 import timber.log.Timber;
 
-public class LandingPageFragment extends Fragment implements Injectable {
-    @Inject
-    AuthNavigation navigation;
-
+public class LandingPageFragment extends NavigationFragment implements Injectable {
     private FragmentLandingPageBinding binding;
     private UIAlphaFrame frame;
 
@@ -139,6 +132,6 @@ public class LandingPageFragment extends Fragment implements Injectable {
     }
 
     private void proceedToLogin() {
-        navigation.login();
+        requireNavigation().navigate(R.id.action_landing_login);
     }
 }
