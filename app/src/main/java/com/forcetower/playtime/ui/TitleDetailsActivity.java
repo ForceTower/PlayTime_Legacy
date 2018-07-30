@@ -22,7 +22,6 @@ import com.forcetower.playtime.utils.AnimUtils;
 import com.forcetower.playtime.utils.MockUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -32,6 +31,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.palette.graphics.Palette;
 import androidx.viewpager.widget.ViewPager;
+
+import static com.forcetower.playtime.utils.ColorUtils.isColorDark;
 
 public class TitleDetailsActivity extends BaseActivity {
     private ActivityTitleDetailsBinding binding;
@@ -44,8 +45,13 @@ public class TitleDetailsActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_title_details);
         frame = new UIAlphaFrame(binding.getRoot(), 250);
 
+        prepareInterface();
         setupViewPager();
         setupTitle(MockUtils.getTitle());
+    }
+
+    private void prepareInterface() {
+        binding.toolbar.setNavigationOnClickListener(v -> finishAfterTransition());
     }
 
     private void setupViewPager() {

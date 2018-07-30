@@ -41,6 +41,8 @@ public class ProfileActivity extends BaseActivity {
         postAdapter = new UserPostAdapter();
         binding.commentsRecycler.setAdapter(postAdapter);
         binding.favoritesRecycler.setItemAnimator(new DefaultItemAnimator());
+
+        binding.toolbar.setNavigationOnClickListener(v -> finishAfterTransition());
     }
 
     private void populateInterface(UserRelation user) {

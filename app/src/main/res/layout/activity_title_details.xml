@@ -171,5 +171,11 @@
             </androidx.viewpager.widget.ViewPager>
         </LinearLayout>
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp">
+        </androidx.appcompat.widget.Toolbar>
     </RelativeLayout>
 </layout>
