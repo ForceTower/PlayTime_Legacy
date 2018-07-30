@@ -53,4 +53,17 @@ public abstract class Credentials {
             return password;
         }
     }
+
+    public static class FacebookCredentials extends Credentials {
+        @SerializedName(value = "facebook_token")
+        private final String facebookToken;
+        @SerializedName(value = "facebook_id")
+        private final String facebookId;
+
+        public FacebookCredentials(String token, String userId) {
+            super("facebook", Constants.PLAY_TIME_PASSWORD_ID, Constants.PLAY_TIME_PASSWORD_SECRET, "*");
+            this.facebookToken = token;
+            this.facebookId = userId;
+        }
+    }
 }

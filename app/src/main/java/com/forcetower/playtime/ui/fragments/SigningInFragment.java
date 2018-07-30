@@ -57,7 +57,24 @@ public class SigningInFragment extends NavigationFragment implements Injectable 
         if (arguments == null) {
             activity.showSnack(getString(R.string.internal_error));
         } else {
-            doLogin(arguments.getString("username"), arguments.getString("password"));
+            int loginType = arguments.getInt("login_type");
+            switch (loginType) {
+                case 0:
+                    doLogin(arguments.getString("username"), arguments.getString("password"));
+                    break;
+                case 1:
+                    doFacebook(arguments.getString("facebook_token"), arguments.getString("facebook_id"));
+                    break;
+            }
+        }
+    }
+
+    private void doFacebook(String token, String userId) {
+        if (!validString(token) || !validString(userId)) {
+            showSnack(getString(R.string.invalid_login));
+            requireNavigation().popBackStack();
+        } else {
+            viewModel.loginFacebook(token, userId);
         }
     }
 
@@ -69,7 +86,7 @@ public class SigningInFragment extends NavigationFragment implements Injectable 
             case ERROR:
                 Timber.e("Login failed");
                 Timber.e("Resource status: " + resource.message + " --> " + resource.code);
-                ((BaseActivity) requireActivity()).showSnack(getString(R.string.login_failed));
+                showSnack(getString(R.string.login_failed));
                 requireNavigation().popBackStack();
                 break;
             case LOADING:
@@ -84,7 +101,7 @@ public class SigningInFragment extends NavigationFragment implements Injectable 
 
     private void doLogin(String username, String password) {
         if (!validString(username) || !validString(password)) {
-            ((BaseActivity) requireActivity()).showSnack(getString(R.string.invalid_login));
+            showSnack(getString(R.string.invalid_login));
             requireNavigation().popBackStack();
         } else {
             viewModel.login(username, password);

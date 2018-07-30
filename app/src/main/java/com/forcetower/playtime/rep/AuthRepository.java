@@ -58,4 +58,30 @@ public class AuthRepository {
     public LiveData<AccessToken> getAccessToken() {
         return database.accessTokenDao().getAccessToken();
     }
+
+    public LiveData<Resource<AccessToken>> loginFacebook(String token, String userId) {
+        return new NetworkBoundResource<AccessToken, AccessToken>(executors) {
+            @Override
+            protected void saveCallResult(@NonNull AccessToken item) {
+                database.accessTokenDao().insert(item);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable AccessToken data) {
+                return data == null || data.isTimeExpired();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<AccessToken> loadFromDb() {
+                return database.accessTokenDao().getAccessToken();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<AccessToken>> createCall() {
+                return service.loginFacebook(new Credentials.FacebookCredentials(token, userId));
+            }
+        }.asLiveData();
+    }
 }

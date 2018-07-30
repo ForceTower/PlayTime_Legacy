@@ -11,4 +11,6 @@ import retrofit2.http.POST;
 public interface PlayService {
     @POST("oauth/token")
     LiveData<ApiResponse<AccessToken>> login(@Body Credentials.LoginCredentials credentials);
+    @POST("oauth/token")
+    LiveData<ApiResponse<AccessToken>> loginFacebook(@Body Credentials.FacebookCredentials credentials);
 }

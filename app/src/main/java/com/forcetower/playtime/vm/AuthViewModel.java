@@ -44,6 +44,13 @@ public class AuthViewModel extends ViewModel {
     }
 
     public void loginFacebook(String token, String userId) {
-
+        if (!connecting) {
+            connecting = true;
+            LiveData<Resource<AccessToken>> login = repository.loginFacebook(token, userId);
+            loginSrc.addSource(login, resource -> {
+                if (resource.status != Status.LOADING) connecting = false;
+                loginSrc.postValue(resource);
+            });
+        }
     }
 }
