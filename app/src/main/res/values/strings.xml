@@ -8,7 +8,7 @@
     <string name="out_of_10">/10</string>
     <string name="title_watched_times">Assistida por %1$d usuários</string>
     <string name="title_score">%1$.1f</string>
-    <string name="search">Procurar</string>
+    <string name="search">Procurar Filme, Série, Pessoa</string>
     <string name="title_rating">Pontos</string>
     <string name="title_launch_date">Data de Lançamento</string>
     <string name="out_of_something">/%1$d</string>
@@ -47,4 +47,5 @@
     <string name="release_date_format">Lançado %1$s</string>
     <string name="alike_titles_label">Títulos Parecidos</string>
     <string name="series_episode_count">%1$d episódios</string>
+    <string name="play_search">Search</string>
 </resources>

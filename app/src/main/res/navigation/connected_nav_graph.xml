@@ -28,4 +28,22 @@
         android:name="com.forcetower.playtime.ui.fragments.WatchlistFragment"
         android:label="watchlist"
         tools:layout="@layout/fragment_watchlist" />
+    <fragment
+        android:id="@+id/search_page"
+        android:name="com.forcetower.playtime.ui.fragments.SearchFragment"
+        android:label="search page"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/search_search"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/scale_up_enter_right"
+            app:exitAnim="@anim/scale_down_exit_left"
+            app:popEnterAnim="@anim/scale_up_enter_right"
+            app:popExitAnim="@anim/scale_down_exit_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.forcetower.playtime.ui.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
