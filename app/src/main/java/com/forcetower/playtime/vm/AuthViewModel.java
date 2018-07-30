@@ -11,10 +11,16 @@ import androidx.lifecycle.ViewModel;
 
 public class AuthViewModel extends ViewModel {
     private final AuthRepository repository;
+    private LiveData<AccessToken> accessSrc;
 
     @Inject
     public AuthViewModel(AuthRepository repository) {
         this.repository = repository;
+    }
+
+    public LiveData<AccessToken> getAccessToken() {
+        if (accessSrc == null) accessSrc = repository.getAccessToken();
+        return accessSrc;
     }
 
     public LiveData<Resource<AccessToken>> login(String username, String password) {

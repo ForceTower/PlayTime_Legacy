@@ -55,4 +55,7 @@ public class AuthRepository {
         }.asLiveData();
     }
 
+    public LiveData<AccessToken> getAccessToken() {
+        return database.accessTokenDao().getAccessToken();
+    }
 }
