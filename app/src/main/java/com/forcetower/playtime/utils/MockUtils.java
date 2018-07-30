@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Comment;
+import com.forcetower.playtime.db.model.Genre;
 import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
@@ -166,5 +167,28 @@ public class MockUtils {
         seasons.add(new TVSeason(4, "Pepsi e Coca-Cola"));
         seasons.add(new TVSeason(5, "Ser ou Não Ser"));
         return seasons;
+    }
+
+    public static List<Genre> getGenres() {
+        List<Genre> genres = new ArrayList<>();
+        genres.add(new Genre(28, "Ação"));
+        genres.add(new Genre(12, "Aventura"));
+        genres.add(new Genre(16, "Animação"));
+        genres.add(new Genre(35, "Comédia"));
+        genres.add(new Genre(80, "Crime"));
+        genres.add(new Genre(99, "Documentário"));
+        genres.add(new Genre(10751, "Família"));
+        genres.add(new Genre(14, "Fantasia"));
+        genres.add(new Genre(36, "História"));
+        genres.add(new Genre(27, "Terror"));
+        genres.add(new Genre(10402, "Música"));
+        genres.add(new Genre(9648, "Mistério"));
+        genres.add(new Genre(10749, "Romance"));
+        genres.add(new Genre(878, "Ficção científica"));
+        genres.add(new Genre(10770, "Cinema TV"));
+        genres.add(new Genre(53, "Thriller"));
+        genres.add(new Genre(10752, "Guerra"));
+        genres.add(new Genre(37, "Faroeste"));
+        return genres;
     }
 }

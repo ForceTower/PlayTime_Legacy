@@ -13,7 +13,7 @@ import static androidx.room.ForeignKey.CASCADE;
 }, indices = {
         @Index(value = "title_id", unique = true)
 })
-public class WatchlistItem {
+public class    WatchlistItem {
     @PrimaryKey(autoGenerate = true)
     private int uid;
     @ColumnInfo(name = "title_id")

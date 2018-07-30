@@ -33,5 +33,29 @@
         android:id="@+id/search_page"
         android:name="com.forcetower.playtime.ui.fragments.SearchFragment"
         android:label="search page"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_to_result_page"
+            app:destination="@id/search_result"
+            app:enterAnim="@anim/scale_up_and_alpha"
+            app:exitAnim="@anim/scale_down_and_alpha"
+            app:popEnterAnim="@anim/scale_up_and_alpha"
+            app:popExitAnim="@anim/scale_down_and_alpha" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/search_result"
+        android:name="com.forcetower.playtime.ui.fragments.TitleListFragment"
+        android:label="search result"
+        tools:layout="@layout/fragment_title_list" >
+        <argument
+            android:name="genre_ids"
+            android:defaultValue=" "
+            app:argType="string" />
+        <argument
+            android:name="year"
+            android:defaultValue=" "
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -72,7 +72,7 @@
         <HorizontalScrollView
             android:id="@+id/category_selection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="4dp"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
@@ -92,55 +92,7 @@
                     android:id="@+id/chip_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ação"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:textAppearance="@style/AppTheme.Chips"
-                    app:chipBackgroundColor="@color/white"
-                    app:chipStrokeColor="@color/chip_color"
-                    app:rippleColor="@color/chip_ripple"
-                    app:chipStrokeWidth="1dp"
-                    app:checkedIconEnabled="false"/>
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Aventura"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:textAppearance="@style/AppTheme.Chips"
-                    app:chipBackgroundColor="@color/white"
-                    app:chipStrokeColor="@color/chip_color"
-                    app:rippleColor="@color/chip_ripple"
-                    app:chipStrokeWidth="1dp"
-                    app:checkedIconEnabled="false"/>
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Animação"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:textAppearance="@style/AppTheme.Chips"
-                    app:chipBackgroundColor="@color/white"
-                    app:chipStrokeColor="@color/chip_color"
-                    app:rippleColor="@color/chip_ripple"
-                    app:chipStrokeWidth="1dp"
-                    app:checkedIconEnabled="false"/>
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dança"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:textAppearance="@style/AppTheme.Chips"
-                    app:chipBackgroundColor="@color/white"
-                    app:chipStrokeColor="@color/chip_color"
-                    app:rippleColor="@color/chip_ripple"
-                    app:chipStrokeWidth="1dp"
-                    app:checkedIconEnabled="false"/>
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Drama"
+                    android:text="@string/chip_action"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:textAppearance="@style/AppTheme.Chips"
                     app:chipBackgroundColor="@color/white"
@@ -228,6 +180,17 @@
             app:layout_constraintStart_toEndOf="@+id/release_year_group"
             app:layout_constraintTop_toBottomOf="@+id/year_label" />
 
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submit_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/btn_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
