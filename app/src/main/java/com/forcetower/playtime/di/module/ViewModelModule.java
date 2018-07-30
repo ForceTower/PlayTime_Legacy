@@ -4,6 +4,7 @@ import com.forcetower.playtime.di.annotation.ViewModelKey;
 import com.forcetower.playtime.vm.AccountViewModel;
 import com.forcetower.playtime.vm.AuthViewModel;
 import com.forcetower.playtime.vm.PlayViewModelFactory;
+import com.forcetower.playtime.vm.TitleViewModel;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,6 +20,9 @@ public abstract class ViewModelModule {
 
     @Binds @IntoMap @ViewModelKey(AccountViewModel.class)
     abstract ViewModel bindAccountViewModel(AccountViewModel accountViewModel);
+
+    @Binds @IntoMap @ViewModelKey(TitleViewModel.class)
+    abstract ViewModel bindTitleViewModel(TitleViewModel titleViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(PlayViewModelFactory factory);

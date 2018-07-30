@@ -6,6 +6,7 @@ import com.forcetower.playtime.BuildConfig;
 import com.forcetower.playtime.Constants;
 import com.forcetower.playtime.PlayApplication;
 import com.forcetower.playtime.api.PlayService;
+import com.forcetower.playtime.api.TMDbService;
 import com.forcetower.playtime.api.adapter.LiveDataCallAdapterFactory;
 import com.forcetower.playtime.db.PlayDatabase;
 import com.forcetower.playtime.db.model.AccessToken;
@@ -18,6 +19,7 @@ import androidx.room.Room;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Headers;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -57,6 +59,18 @@ public class AppModule {
                 .create(PlayService.class);
     }
 
+    @Provides
+    @Singleton
+    TMDbService provideTMDbService(OkHttpClient client) {
+        return new Retrofit.Builder()
+                .baseUrl(Constants.TMDB_SERVICE_BASE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
+                .client(client)
+                .build()
+                .create(TMDbService.class);
+    }
+
     @Singleton
     @Provides
     OkHttpClient provideHttpClient(Interceptor interceptor) {
@@ -74,7 +88,8 @@ public class AppModule {
     Interceptor provideInterceptor(PlayDatabase database) {
         return chain -> {
             Request oRequest = chain.request();
-            if (oRequest.url().host().contains(Constants.PLAY_TIME_URL)) {
+            String host = oRequest.url().host();
+            if (host.contains(Constants.PLAY_TIME_URL)) {
                 Headers.Builder builder = oRequest.headers().newBuilder()
                         .add("Accept", "application/json");
 
@@ -86,6 +101,17 @@ public class AppModule {
                 Headers newHeaders = builder.build();
                 Request request = oRequest.newBuilder().headers(newHeaders).build();
 
+                return chain.proceed(request);
+            } else if (host.contains(Constants.TMDB_URL)) {
+                HttpUrl url = oRequest.url().newBuilder()
+                        .addQueryParameter("api_key", Constants.TMDB_API_KEY)
+                        .addQueryParameter("language", "pt-BR")
+                        .build();
+
+                Request.Builder requestBuilder = oRequest.newBuilder()
+                        .url(url);
+
+                Request request = requestBuilder.build();
                 return chain.proceed(request);
             }
 

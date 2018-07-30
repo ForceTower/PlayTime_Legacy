@@ -21,6 +21,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import timber.log.Timber;
 
 import static com.forcetower.playtime.utils.PixelUtils.getPixelsFromDp;
 
@@ -59,7 +60,14 @@ public class TitleListFragment extends NavigationFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        populateAdapter(MockUtils.getTop());
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            int source = arguments.getInt("source");
+            Timber.d("Data Source Enum is: " + source);
+            populateAdapter(MockUtils.getTop());
+        } else {
+            Timber.e("No arguments");
+        }
     }
 
     private void populateAdapter(List<Title> data) {

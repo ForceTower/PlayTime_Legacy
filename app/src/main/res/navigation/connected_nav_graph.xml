@@ -9,13 +9,23 @@
         android:id="@+id/movie_list"
         android:name="com.forcetower.playtime.ui.fragments.TitleListFragment"
         android:label="movies"
-        tools:layout="@layout/fragment_title_list"/>
+        tools:layout="@layout/fragment_title_list">
+        <argument
+            android:name="source"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/series_list"
         android:name="com.forcetower.playtime.ui.fragments.TitleListFragment"
         android:label="series"
-        tools:layout="@layout/fragment_title_list" />
+        tools:layout="@layout/fragment_title_list" >
+        <argument
+            android:name="source"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/recommendations"
@@ -57,5 +67,9 @@
             android:name="year"
             android:defaultValue=" "
             app:argType="string" />
+        <argument
+            android:name="source"
+            android:defaultValue="2"
+            app:argType="integer" />
     </fragment>
 </navigation>
