@@ -58,4 +58,5 @@
     <string name="chip_action">Ação</string>
     <string name="simple_integer_format">%1$d</string>
     <string name="user_image_transition" translatable="false">user_image_transition</string>
+    <string name="login_failed">Login falhou</string>
 </resources>

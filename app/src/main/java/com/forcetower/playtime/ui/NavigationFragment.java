@@ -17,7 +17,7 @@ public abstract class NavigationFragment extends Fragment {
         try {
             activity = (ToolbarActivity) context;
         } catch (ClassCastException e) {
-            Timber.e("The getToolbar() method will throw an NPE since the parent activity does not implement ToolbarActivity");
+            Timber.w("The getToolbar() method will throw an NPE since the parent activity does not implement ToolbarActivity");
         }
     }
 
