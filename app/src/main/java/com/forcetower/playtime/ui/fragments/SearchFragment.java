@@ -10,6 +10,7 @@ import com.arlib.floatingsearchview.util.view.SearchInputView;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentSearchBinding;
 import com.forcetower.playtime.ui.NavigationFragment;
+import com.forcetower.playtime.utils.AnimUtils;
 import com.forcetower.playtime.utils.PixelUtils;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
+import timber.log.Timber;
 
 public class SearchFragment extends NavigationFragment {
     private FragmentSearchBinding binding;
@@ -25,8 +27,25 @@ public class SearchFragment extends NavigationFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
+        getToolbar().setElevation(0);
         prepareSearchBar();
+        prepareActions();
         return binding.getRoot();
+    }
+
+    private void prepareActions() {
+        binding.categoryChips.setOnCheckedChangeListener((chipGroup, i) -> {
+            Timber.d("Position i: " + i);
+        });
+
+        binding.releaseYearGroup.setOnCheckedChangeListener((chipGroup, i) -> {
+            Timber.d("Year Selection i: " + i);
+            if (i == -1) {
+                AnimUtils.fadeOut(requireContext(), binding.etYear);
+            } else {
+                AnimUtils.fadeIn(requireContext(), binding.etYear);
+            }
+        });
     }
 
     private void prepareSearchBar() {

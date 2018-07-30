@@ -115,7 +115,7 @@ public class MockUtils {
         Title title = new Title(
                 "Homem-Aranha: De Volta ao Lar",
                 "https://image.tmdb.org/t/p/original/q2BrsPEztd0L1cueuFIZakHObl7.jpg",
-                "https://youtu.be/KAemcLqWLH4",
+                "https://www.youtube.com/watch?v=DiTECkLZ8HM",
                 8.9f,
                 "07 de Julho de 2017");
 

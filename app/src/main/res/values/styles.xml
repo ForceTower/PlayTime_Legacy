@@ -24,4 +24,9 @@
     <style name="AppTheme.BottomNavigation.Active" parent="TextAppearance.MaterialComponents.BottomNavigationView.Active">
         <item name="android:fontFamily">@font/product_sans_regular</item>
     </style>
+
+    <style name="AppTheme.Chips" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:fontFamily">@font/product_sans_regular</item>
+        <item name="android:textColor">@color/chip_color</item>
+    </style>
 </resources>

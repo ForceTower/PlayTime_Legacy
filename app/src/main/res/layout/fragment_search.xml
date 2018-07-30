@@ -10,7 +10,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/product_sans_regular"
@@ -19,7 +19,7 @@
             android:textSize="48sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintEnd_toStartOf="@+id/search"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
             app:layout_constraintVertical_bias="0.2" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/product_sans_regular"
@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/play"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.2" />
 
@@ -54,47 +54,179 @@
             app:floatingSearch_showSearchKey="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/search" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton3"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/category_label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:text="Gênero"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/product_sans_regular"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/filter_title_genre"
+            android:textColor="@color/primaryText"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_view" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+        <HorizontalScrollView
+            android:id="@+id/category_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Ano"
-            android:fontFamily="@font/product_sans_regular"
+            android:layout_marginTop="4dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton3" />
+            app:layout_constraintTop_toBottomOf="@+id/category_label">
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/category_chips"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:singleSelection="false">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ação"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:textAppearance="@style/AppTheme.Chips"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/chip_color"
+                    app:rippleColor="@color/chip_ripple"
+                    app:chipStrokeWidth="1dp"
+                    app:checkedIconEnabled="false"/>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aventura"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:textAppearance="@style/AppTheme.Chips"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/chip_color"
+                    app:rippleColor="@color/chip_ripple"
+                    app:chipStrokeWidth="1dp"
+                    app:checkedIconEnabled="false"/>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Animação"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:textAppearance="@style/AppTheme.Chips"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/chip_color"
+                    app:rippleColor="@color/chip_ripple"
+                    app:chipStrokeWidth="1dp"
+                    app:checkedIconEnabled="false"/>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dança"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:textAppearance="@style/AppTheme.Chips"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/chip_color"
+                    app:rippleColor="@color/chip_ripple"
+                    app:chipStrokeWidth="1dp"
+                    app:checkedIconEnabled="false"/>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Drama"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:textAppearance="@style/AppTheme.Chips"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/chip_color"
+                    app:rippleColor="@color/chip_ripple"
+                    app:chipStrokeWidth="1dp"
+                    app:checkedIconEnabled="false"/>
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/year_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="@string/filter_title_year"
+            android:textColor="@color/primaryText"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/category_selection" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/release_year_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/year_label"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_smaller_than"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_title_year_smaller_than"
+                android:textAppearance="@style/AppTheme.Chips"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="@color/chip_color"
+                app:rippleColor="@color/chip_ripple"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_greater_than"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_title_year_greater_than"
+                android:textAppearance="@style/AppTheme.Chips"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="@color/chip_color"
+                app:rippleColor="@color/chip_ripple"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_equal_to"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_title_year_equal_to"
+                android:textAppearance="@style/AppTheme.Chips"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="@color/chip_color"
+                app:rippleColor="@color/chip_ripple"
+                app:chipStrokeWidth="1dp" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <EditText
+            android:id="@+id/et_year"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Ator"
+            android:layout_marginEnd="24dp"
+            android:maxLength="4"
+            android:inputType="number"
+            android:hint="@string/filter_title_year_hint"
+            android:visibility="invisible"
             android:fontFamily="@font/product_sans_regular"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintStart_toEndOf="@+id/release_year_group"
+            app:layout_constraintTop_toBottomOf="@+id/year_label" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
