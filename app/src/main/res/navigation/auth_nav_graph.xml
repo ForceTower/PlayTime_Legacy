@@ -12,9 +12,13 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splash_landing"
+            app:clearTask="true"
             app:destination="@id/landing"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:launchSingleTop="true"
-            app:clearTask="true"/>
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/landing"
@@ -24,7 +28,11 @@
         <action
             android:id="@+id/action_landing_login"
             app:destination="@id/login"
-            app:popUpTo="@+id/landing" />
+            app:popUpTo="@+id/landing"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/login"
@@ -33,7 +41,11 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_login_connecting"
-            app:destination="@id/connecting" />
+            app:destination="@id/connecting"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/connecting"
