@@ -72,6 +72,7 @@ public class WatchlistFragment extends NavigationFragment {
 
     private TitleClickListener titleClickListener = (title, position, view) -> {
         Intent intent = new Intent(requireContext(), TitleDetailsActivity.class);
+        intent.putExtra("title_id", title.getUid());
         startActivity(intent);
     };
 }

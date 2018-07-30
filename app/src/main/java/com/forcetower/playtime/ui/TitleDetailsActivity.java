@@ -13,6 +13,8 @@ import com.bumptech.glide.request.target.Target;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.ActivityTitleDetailsBinding;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.ui.fragments.SerieSeasonsFragment;
+import com.forcetower.playtime.ui.fragments.TitleAlikeFragment;
 import com.forcetower.playtime.ui.fragments.TitleCastFragment;
 import com.forcetower.playtime.ui.fragments.TitleCommentsFragment;
 import com.forcetower.playtime.ui.fragments.TitleDetailsOverviewFragment;
@@ -66,22 +68,37 @@ public class TitleDetailsActivity extends BaseActivity {
 
     private void populateViewPager(Title title) {
         boolean movie = title.isMovie();
-        binding.totalPages.setText(getString(R.string.out_of_something, (movie ? 3 : 4)));
+        binding.totalPages.setText(getString(R.string.out_of_something, (movie ? 4 : 5)));
         binding.currentPage.setText(getString(R.string.details_current_page, 1));
+
+        List<Fragment> fragments = new ArrayList<>();
 
         Bundle bundle = new Bundle();
         bundle.putLong("title_id", title.getUid());
 
         Fragment overview = new TitleDetailsOverviewFragment();
         overview.setArguments(bundle);
+        fragments.add(overview);
 
         Fragment cast = new TitleCastFragment();
         cast.setArguments(bundle);
+        fragments.add(cast);
 
         Fragment comments = new TitleCommentsFragment();
         comments.setArguments(bundle);
+        fragments.add(comments);
 
-        adapter.submitList(Arrays.asList(overview, cast, comments));
+        if (!movie) {
+            Fragment seasons = new SerieSeasonsFragment();
+            seasons.setArguments(bundle);
+            fragments.add(seasons);
+        }
+
+        Fragment alike = new TitleAlikeFragment();
+        alike.setArguments(bundle);
+        fragments.add(alike);
+
+        adapter.submitList(fragments);
     }
 
     private void prepareImageAndColors(Title title) {

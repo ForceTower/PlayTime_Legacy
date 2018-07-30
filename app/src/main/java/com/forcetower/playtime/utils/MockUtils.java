@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Comment;
+import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 
@@ -120,11 +121,11 @@ public class MockUtils {
 
         title.setDescription("Depois de atuar ao lado dos Vingadores, chegou a hora do pequeno Peter Parker (Tom Holland) voltar para casa e para a sua vida, já não mais tão normal. Lutando diariamente contra pequenos crimes nas redondezas, ele pensa ter encontrado a missão de sua vida quando o terrível vilão Abutre (Michael Keaton) surge amedrontando a cidade. O problema é que a tarefa não será tão fácil como ele imaginava.");
         title.setRuntime(133);
-        title.setClassification("PG-13");
+        title.setClassification("12 anos");
         title.setGenres("Ação / Aventura");
         title.setMovie(true);
         title.setImageHorizontal("https://image.tmdb.org/t/p/original/tPpYGm2mVecue7Bk3gNVoSPA5qn.jpg");
-        title.setColorPalette(Color.parseColor("#42a5f5"));
+        title.setColorPalette(Color.parseColor("#1e88e5"));
         title.setHasColorPalette(true);
         title.setLikes(49473);
 
@@ -150,5 +151,20 @@ public class MockUtils {
         comments.add(new Comment("Muito bom, o diretor e escritores estão de parabens por esta belissima obra de arte", "Marcelo Bião", "https://avatars3.githubusercontent.com/u/8891971?s=460&v=4", 0));
 
         return comments;
+    }
+
+    public static List<Title> getAlike() {
+        return getAll();
+    }
+
+    public static List<TVSeason> getSeasons() {
+        List<TVSeason> seasons = new ArrayList<>();
+        seasons.add(new TVSeason(0, "Especiais"));
+        seasons.add(new TVSeason(1, "Fogo e Gelo"));
+        seasons.add(new TVSeason(2, "Ferro e Cobre"));
+        seasons.add(new TVSeason(3, "Biscoito e Bolacha"));
+        seasons.add(new TVSeason(4, "Pepsi e Coca-Cola"));
+        seasons.add(new TVSeason(5, "Ser ou Não Ser"));
+        return seasons;
     }
 }

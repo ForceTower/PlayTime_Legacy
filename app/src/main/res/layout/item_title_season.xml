@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="season"
+            type="com.forcetower.playtime.db.model.TVSeason"/>
+    </data>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -11,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Temporada 1"
+            android:text="@{season.name}"
             android:textColor="@color/primaryText"
             android:fontFamily="@font/product_sans_regular"/>
 
@@ -18,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            tools:text="Fogo e Gelo"
+            tools:text="10 episódios"
+            android:text="@{@string/series_episode_count(season.episodeCount)}"
             android:textSize="12sp"
             android:fontFamily="@font/product_sans_regular"/>
 

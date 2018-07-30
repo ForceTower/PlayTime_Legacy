@@ -12,14 +12,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
             tools:src="@tools:sample/avatars"
-            app:imageUrl="@{comment.userImage}"/>
+            app:imageUrl="@{comment.userImage}"
+            android:layout_marginTop="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="@tools:sample/lorem/random"
+                tools:text="Este é i, teste de texto gigantesco, por isso eu espero que isso realmente funcione, ja que nos layouts anteriores este negocio não estava funcionando como esoerado. Nossa ja estamos na quarta linha. A minha habilidade de não parar de digitar é muito boa"
                 android:text="@{comment.comment}"
                 android:paddingTop="4dp"
                 android:textSize="13sp"
