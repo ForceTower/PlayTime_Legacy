@@ -1,4 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
+    <string name="facebook_app_id" translatable="false">167636160580920</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb167636160580920</string>
+
     <string name="app_name">PlayTime</string>
     <string name="title_poster">Pôster do Título</string>
     <string name="launched_at">Lançado em %1$s</string>
@@ -59,4 +62,6 @@
     <string name="simple_integer_format">%1$d</string>
     <string name="user_image_transition" translatable="false">user_image_transition</string>
     <string name="login_failed">Login falhou</string>
+    <string name="you_need_to_allow_all_features">Você precisa permitir todas as funções</string>
+    <string name="facebook_login_error">Login com Facebook falhou</string>
 </resources>

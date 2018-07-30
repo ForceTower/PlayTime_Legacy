@@ -42,4 +42,8 @@ public class AuthViewModel extends ViewModel {
             });
         }
     }
+
+    public void loginFacebook(String token, String userId) {
+
+    }
 }

@@ -21,6 +21,10 @@ public abstract class NavigationFragment extends Fragment {
         }
     }
 
+    protected void showSnack(String string) {
+        ((BaseActivity)requireActivity()).showSnack(string);
+    }
+
     protected NavController requireNavigation() {
         View view = getView();
         if (view != null) {
