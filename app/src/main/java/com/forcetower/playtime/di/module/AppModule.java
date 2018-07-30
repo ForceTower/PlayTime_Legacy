@@ -35,7 +35,7 @@ public class AppModule {
     @Provides
     @Singleton
     PlayDatabase provideDatabase(PlayApplication application) {
-        int value = (int) (Math.random() * 300);
+        int value = (int) (Math.random() * 3500);
         String random = "play_database_" + value + ".db";
         return Room.databaseBuilder(application, PlayDatabase.class, BuildConfig.DEBUG ? random : "play_database.db")
                 .fallbackToDestructiveMigration()
