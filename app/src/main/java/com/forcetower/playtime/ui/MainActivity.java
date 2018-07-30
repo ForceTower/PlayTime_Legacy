@@ -1,22 +1,17 @@
 package com.forcetower.playtime.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.ActivityMainBinding;
-import com.forcetower.playtime.ui.fragments.TitleListFragment;
 import com.squareup.picasso.Picasso;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
-import timber.log.Timber;
-
-import static com.forcetower.playtime.utils.ColorUtils.isColorDark;
 
 public class MainActivity extends BaseActivity implements ToolbarActivity {
     private ActivityMainBinding binding;
@@ -33,6 +28,13 @@ public class MainActivity extends BaseActivity implements ToolbarActivity {
                 .into(binding.toolbarInclude.userImage);
 
         NavigationUI.setupWithNavController(binding.bottomNavigation, getNavController());
+        binding.toolbarInclude.userImage.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                    binding.toolbarInclude.userImage,
+                    getString(R.string.user_image_transition)).toBundle();
+            startActivity(intent, bundle);
+        });
     }
 
     @Override

@@ -56,4 +56,6 @@
     <string name="filter_title_year_smaller_than">Menor que</string>
     <string name="btn_filter">Buscar</string>
     <string name="chip_action">Ação</string>
+    <string name="simple_integer_format">%1$d</string>
+    <string name="user_image_transition" translatable="false">user_image_transition</string>
 </resources>

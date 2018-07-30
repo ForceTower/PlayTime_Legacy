@@ -2,9 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="post"
+            type="com.forcetower.playtime.db.relations.TitleComment"/>
+    </data>
+
     <androidx.cardview.widget.CardView
-        android:layout_width="270dp"
-        android:layout_height="100dp"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
         app:cardCornerRadius="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginStart="2dp"
@@ -18,11 +25,12 @@
 
             <ImageView
                 android:id="@+id/title_image"
-                android:layout_width="75dp"
-                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/title_poster"
                 android:layout_alignParentEnd="true"
+                app:imageUrl="@{post.title.image}"
                 tools:src="@drawable/spider_man_portrait" />
 
             <TextView
@@ -31,6 +39,7 @@
                 android:layout_toStartOf="@id/title_image"
                 android:padding="16dp"
                 tools:text="Este filme foi sem sombra de duvidas um filme espetacular. O diretor está de parabens."
+                android:text="@{post.comment}"
                 android:textSize="12sp"
                 android:fontFamily="@font/product_sans_regular"/>
 

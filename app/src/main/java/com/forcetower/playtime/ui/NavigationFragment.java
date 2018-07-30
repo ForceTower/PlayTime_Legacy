@@ -21,7 +21,7 @@ public abstract class NavigationFragment extends Fragment {
         }
     }
 
-    public NavController requireNavigation() {
+    protected NavController requireNavigation() {
         View view = getView();
         if (view != null) {
             return Navigation.findNavController(view);

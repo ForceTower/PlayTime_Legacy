@@ -7,7 +7,10 @@ import com.forcetower.playtime.db.model.Comment;
 import com.forcetower.playtime.db.model.Genre;
 import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.db.model.WatchlistItem;
+import com.forcetower.playtime.db.relations.TitleComment;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
+import com.forcetower.playtime.db.relations.UserRelation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -190,5 +193,27 @@ public class MockUtils {
         genres.add(new Genre(10752, "Guerra"));
         genres.add(new Genre(37, "Faroeste"));
         return genres;
+    }
+
+    public static UserRelation getUser() {
+        UserRelation user = new UserRelation(
+                "João Paulo Santos Sena",
+                "Uma frase de efeito pode significar tudo",
+                "https://avatars1.githubusercontent.com/u/9421614?s=460&v=4",
+                9734,
+                4200,
+                2490
+        );
+
+        List<Title> fav = new ArrayList<>();
+        for (TitleWatchlist item : getWatchlist()) fav.add(item.getTitle());
+        user.setFavorites(fav);
+
+        List<TitleComment> com = new ArrayList<>();
+        for (Comment comment : getComments()) com.add(new TitleComment(comment, getTitle()));
+        user.setComments(com);
+
+        user.setHistory(getAll());
+        return user;
     }
 }
