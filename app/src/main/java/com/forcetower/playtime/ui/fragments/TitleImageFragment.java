@@ -67,11 +67,11 @@ public class TitleImageFragment extends Fragment {
                         if (resource instanceof BitmapDrawable) {
                             Palette palette = Palette.from(((BitmapDrawable) resource).getBitmap()).generate();
                             int vibrant = palette.getVibrantColor(Color.WHITE);
-                            activity.setStatusBarColor(vibrant);
+                            //activity.setStatusBarColor(vibrant);
                             frame.changeAlphaTo(vibrant);
                         } else {
                             frame.changeAlphaTo(Color.BLACK);
-                            activity.setStatusBarColor(Color.BLACK);
+                            //activity.setStatusBarColor(Color.BLACK);
                         }
                         return false;
                     }
