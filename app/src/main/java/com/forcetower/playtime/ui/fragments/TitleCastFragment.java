@@ -69,7 +69,6 @@ public class TitleCastFragment extends Fragment implements Injectable {
         Bundle arguments = getArguments();
         if (arguments != null) {
             long titleId = arguments.getLong("title_id");
-            populateInterface(MockUtils.getCast());
             TitleViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
             viewModel.getCast(titleId).observe(this, this::populateInterface);
         } else {

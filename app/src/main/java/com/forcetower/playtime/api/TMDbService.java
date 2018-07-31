@@ -24,11 +24,15 @@ public interface TMDbService {
     @GET("movie/{movie_id}")
     LiveData<ApiResponse<Title>> getMovieDetails(@Path("movie_id") long movieId, @Query("append_to_response") String append);
     @GET("tv/{tv_id}")
-    LiveData<ApiResponse<Title>> getSeriesDetails(@Path("tv_id") long tvId);
+    LiveData<ApiResponse<Title>> getSeriesDetails(@Path("tv_id") long tvId, @Query("append_to_response") String append);
     @GET("movie/{movie_id}/release_dates")
     LiveData<ApiResponse<TitleCertification>> getMovieRating(@Path("movie_id") long movieId);
-    @GET("/tv/{tv_id}/content_ratings")
+    @GET("tv/{tv_id}/content_ratings")
     LiveData<ApiResponse<TitleCertification>> getSeriesRating(@Path("tv_id") long tvId);
+    @GET("movie/{movie_id}/similar")
+    Call<PopularResult> getSimilarMovies(@Path("movie_id") long movieId, @Query("page") int page);
+    @GET("tv/{tv_id}/similar")
+    Call<PopularResult> getSimilarSeries(@Path("tv_id") long seriesId, @Query("page") int page);
 
 
 }

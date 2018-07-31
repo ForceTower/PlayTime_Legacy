@@ -1,13 +1,28 @@
 package com.forcetower.playtime.db.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class TVSeason {
+    @PrimaryKey
+    @SerializedName("id")
     private long uid;
+    @SerializedName("season_number")
     private int number;
     private String name;
     private String overview;
+    @SerializedName("air_date")
     private String airDate;
+    @SerializedName("episode_count")
     private int episodeCount;
+    @SerializedName("poster_path")
     private String image;
+    @ColumnInfo(name = "title_id")
+    private long titleId;
 
     public TVSeason(int number, String name) {
         this.number = number;
@@ -98,5 +113,13 @@ public class TVSeason {
         result = 31 * result + episodeCount;
         result = 31 * result + (image != null ? image.hashCode() : 0);
         return result;
+    }
+
+    public long getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(long titleId) {
+        this.titleId = titleId;
     }
 }

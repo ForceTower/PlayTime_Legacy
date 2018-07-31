@@ -6,6 +6,30 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+        <LinearLayout
+            android:id="@+id/layout_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_3d_glasses_colored"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/no_movie_on_watchlist"
+                android:textAlignment="gravity"
+                android:textColor="@color/spider_blue"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:fontFamily="@font/product_sans_regular"/>
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/watchlist_recycler"
             android:layout_width="match_parent"

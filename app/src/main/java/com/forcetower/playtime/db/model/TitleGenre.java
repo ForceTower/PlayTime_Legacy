@@ -12,7 +12,8 @@ import static androidx.room.ForeignKey.CASCADE;
         @ForeignKey(entity = Title.class, parentColumns = "uid", childColumns = "title_id", onUpdate = CASCADE, onDelete = CASCADE),
         @ForeignKey(entity = Genre.class, parentColumns = "uid", childColumns = "genre_id", onUpdate = CASCADE, onDelete = CASCADE)
 }, indices = {
-        @Index(value = {"title_id", "genre_id"}, unique = true)
+        @Index(value = {"title_id", "genre_id"}, unique = true),
+        @Index(value = {"genre_id"})
 })
 public class TitleGenre {
     @PrimaryKey(autoGenerate = true)

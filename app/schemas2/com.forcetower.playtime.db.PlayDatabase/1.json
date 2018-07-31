@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "472ff78fb0ffe0e80e4c7ab2189b6dab",
+    "identityHash": "5651c4aa11f06d215cca7ba20a789f56",
     "entities": [
       {
         "tableName": "AccessToken",
@@ -338,6 +338,14 @@
               "genre_id"
             ],
             "createSql": "CREATE UNIQUE INDEX `index_TitleGenre_title_id_genre_id` ON `${TABLE_NAME}` (`title_id`, `genre_id`)"
+          },
+          {
+            "name": "index_TitleGenre_genre_id",
+            "unique": false,
+            "columnNames": [
+              "genre_id"
+            ],
+            "createSql": "CREATE  INDEX `index_TitleGenre_genre_id` ON `${TABLE_NAME}` (`genre_id`)"
           }
         ],
         "foreignKeys": [
@@ -420,11 +428,206 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "WatchlistItem",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `title_id` INTEGER NOT NULL, `added` INTEGER NOT NULL, FOREIGN KEY(`title_id`) REFERENCES `Title`(`uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "titleId",
+            "columnName": "title_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "added",
+            "columnName": "added",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_WatchlistItem_title_id",
+            "unique": true,
+            "columnNames": [
+              "title_id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_WatchlistItem_title_id` ON `${TABLE_NAME}` (`title_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Title",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "title_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "TitleWatch",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `markTime` INTEGER NOT NULL, `title_id` INTEGER NOT NULL, `is_movie` INTEGER NOT NULL, FOREIGN KEY(`title_id`) REFERENCES `Title`(`uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "markTime",
+            "columnName": "markTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titleId",
+            "columnName": "title_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isMovie",
+            "columnName": "is_movie",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_TitleWatch_uuid",
+            "unique": true,
+            "columnNames": [
+              "uuid"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_TitleWatch_uuid` ON `${TABLE_NAME}` (`uuid`)"
+          },
+          {
+            "name": "index_TitleWatch_title_id_is_movie",
+            "unique": true,
+            "columnNames": [
+              "title_id",
+              "is_movie"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_TitleWatch_title_id_is_movie` ON `${TABLE_NAME}` (`title_id`, `is_movie`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Title",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "title_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "TVSeason",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `number` INTEGER NOT NULL, `name` TEXT, `overview` TEXT, `airDate` TEXT, `episodeCount` INTEGER NOT NULL, `image` TEXT, `title_id` INTEGER NOT NULL, PRIMARY KEY(`uid`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "number",
+            "columnName": "number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "overview",
+            "columnName": "overview",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "airDate",
+            "columnName": "airDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "episodeCount",
+            "columnName": "episodeCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "titleId",
+            "columnName": "title_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"472ff78fb0ffe0e80e4c7ab2189b6dab\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"5651c4aa11f06d215cca7ba20a789f56\")"
     ]
   }
 }

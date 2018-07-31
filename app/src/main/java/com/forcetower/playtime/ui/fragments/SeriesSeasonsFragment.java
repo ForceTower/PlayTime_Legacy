@@ -8,22 +8,31 @@ import android.view.ViewGroup;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentTitleSeasonsBinding;
 import com.forcetower.playtime.db.model.TVSeason;
+import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.adapter.SeasonsAdapter;
 import com.forcetower.playtime.ui.widget.DividerItemDecorator;
 import com.forcetower.playtime.utils.MockUtils;
+import com.forcetower.playtime.vm.PlayViewModelFactory;
+import com.forcetower.playtime.vm.TitleViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import timber.log.Timber;
 
-public class SerieSeasonsFragment extends Fragment {
+public class SeriesSeasonsFragment extends Fragment implements Injectable {
+    @Inject
+    PlayViewModelFactory viewModelFactory;
+
     private FragmentTitleSeasonsBinding binding;
     private SeasonsAdapter adapter;
 
@@ -59,7 +68,8 @@ public class SerieSeasonsFragment extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             long titleId = arguments.getLong("title_id");
-            populateInterface(MockUtils.getSeasons());
+            TitleViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
+            viewModel.getSeasons(titleId).observe(this, this::populateInterface);
         } else {
             Timber.e("Arguments are null");
         }

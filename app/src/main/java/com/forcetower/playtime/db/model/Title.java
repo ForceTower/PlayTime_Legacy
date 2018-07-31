@@ -48,6 +48,10 @@ public class Title {
     private boolean hasColorPalette;
 
     @Ignore
+    @SerializedName(value = "episode_run_time")
+    private List<Integer> episodeRunTime;
+
+    @Ignore
     @SerializedName(value = "genre_ids")
     private List<Integer> genreIds;
 
@@ -64,6 +68,9 @@ public class Title {
 
     @Ignore
     private Credits credits;
+
+    @Ignore
+    private List<TVSeason> seasons;
 
     public Title(String name, String image, String trailer, float rating, String releaseDate) {
         this.name = name;
@@ -307,5 +314,21 @@ public class Title {
 
     public void setCredits(Credits credits) {
         this.credits = credits;
+    }
+
+    public List<Integer> getEpisodeRunTime() {
+        return episodeRunTime;
+    }
+
+    public void setEpisodeRunTime(List<Integer> episodeRunTime) {
+        this.episodeRunTime = episodeRunTime;
+    }
+
+    public List<TVSeason> getSeasons() {
+        return seasons;
+    }
+
+    public void setSeasons(List<TVSeason> seasons) {
+        this.seasons = seasons;
     }
 }

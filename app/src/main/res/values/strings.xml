@@ -66,4 +66,5 @@
     <string name="facebook_login_error">Login com Facebook falhou</string>
     <string name="invalid_credentials">Credenciais Incorretas</string>
     <string name="title_image_transition">title_image_transition</string>
+    <string name="no_movie_on_watchlist">Nenhum item foi adicionado a lista de assistir depois\nSelecione um filme que ele aparecerá aqui</string>
 </resources>

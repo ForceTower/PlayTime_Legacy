@@ -14,13 +14,12 @@ import com.forcetower.playtime.R;
 import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.databinding.ActivityTitleDetailsBinding;
 import com.forcetower.playtime.db.model.Title;
-import com.forcetower.playtime.ui.fragments.SerieSeasonsFragment;
+import com.forcetower.playtime.ui.fragments.SeriesSeasonsFragment;
 import com.forcetower.playtime.ui.fragments.TitleAlikeFragment;
 import com.forcetower.playtime.ui.fragments.TitleCastFragment;
 import com.forcetower.playtime.ui.fragments.TitleCommentsFragment;
 import com.forcetower.playtime.ui.fragments.TitleDetailsOverviewFragment;
 import com.forcetower.playtime.utils.AnimUtils;
-import com.forcetower.playtime.utils.MockUtils;
 import com.forcetower.playtime.vm.PlayViewModelFactory;
 import com.forcetower.playtime.vm.TitleViewModel;
 
@@ -41,8 +40,6 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import timber.log.Timber;
-
-import static com.forcetower.playtime.utils.ColorUtils.isColorDark;
 
 public class TitleDetailsActivity extends BaseActivity implements HasSupportFragmentInjector {
     @Inject
@@ -124,7 +121,7 @@ public class TitleDetailsActivity extends BaseActivity implements HasSupportFrag
         fragments.add(comments);
 
         if (!movie) {
-            Fragment seasons = new SerieSeasonsFragment();
+            Fragment seasons = new SeriesSeasonsFragment();
             seasons.setArguments(bundle);
             fragments.add(seasons);
         }

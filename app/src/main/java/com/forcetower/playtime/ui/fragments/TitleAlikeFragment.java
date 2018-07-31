@@ -9,23 +9,33 @@ import android.view.ViewGroup;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentTitleAlikeBinding;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.TitleClickListener;
 import com.forcetower.playtime.ui.TitleDetailsActivity;
 import com.forcetower.playtime.ui.adapter.AlikeAdapter;
 import com.forcetower.playtime.ui.widget.DividerItemDecorator;
 import com.forcetower.playtime.utils.MockUtils;
+import com.forcetower.playtime.vm.PlayViewModelFactory;
+import com.forcetower.playtime.vm.TitleViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import timber.log.Timber;
 
-public class TitleAlikeFragment extends Fragment {
+public class TitleAlikeFragment extends Fragment implements Injectable {
+    @Inject
+    PlayViewModelFactory viewModelFactory;
+
     private FragmentTitleAlikeBinding binding;
     private AlikeAdapter adapter;
 
@@ -52,13 +62,15 @@ public class TitleAlikeFragment extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             long titleId = arguments.getLong("title_id");
-            populateInterface(MockUtils.getAlike());
+            boolean isMovie = arguments.getBoolean("is_movie");
+            TitleViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
+            populateInterface(viewModel.getMoviesAlike(titleId, isMovie));
         } else {
             Timber.e("Arguments are null");
         }
     }
 
-    private void populateInterface(List<Title> data) {
+    private void populateInterface(PagedList<Title> data) {
         adapter.submitList(data);
     }
 

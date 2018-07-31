@@ -10,11 +10,13 @@ import com.forcetower.playtime.ui.TitleClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.paging.PagedList;
+import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AlikeAdapter extends ListAdapter<Title, AlikeAdapter.TitleHolder> {
+public class AlikeAdapter extends PagedListAdapter<Title, AlikeAdapter.TitleHolder> {
     private TitleClickListener titleClickListener;
 
     public AlikeAdapter() {

@@ -1,5 +1,7 @@
 package com.forcetower.playtime.db.model;
 
+import java.util.UUID;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -15,7 +17,8 @@ import static androidx.room.ForeignKey.CASCADE;
 })
 public class WatchlistItem {
     @PrimaryKey(autoGenerate = true)
-    private int uid;
+    private int id;
+    private String uuid;
     @ColumnInfo(name = "title_id")
     private long titleId;
     private long added;
@@ -23,14 +26,15 @@ public class WatchlistItem {
     public WatchlistItem(long titleId, long added) {
         this.titleId = titleId;
         this.added = added;
+        this.uuid = UUID.randomUUID().toString();
     }
 
-    public int getUid() {
-        return uid;
+    public int getId() {
+        return id;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getTitleId() {
@@ -56,16 +60,24 @@ public class WatchlistItem {
 
         WatchlistItem that = (WatchlistItem) o;
 
-        if (uid != that.uid) return false;
+        if (id != that.id) return false;
         if (titleId != that.titleId) return false;
         return added == that.added;
     }
 
     @Override
     public int hashCode() {
-        int result = uid;
+        int result = id;
         result = 31 * result + (int) (titleId ^ (titleId >>> 32));
         result = 31 * result + (int) (added ^ (added >>> 32));
         return result;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

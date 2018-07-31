@@ -13,8 +13,12 @@ import com.forcetower.playtime.api.tmdb.VideoResults;
 import com.forcetower.playtime.db.PlayDatabase;
 import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Genre;
+import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.db.model.TitleWatch;
+import com.forcetower.playtime.db.relations.TitleWatchlist;
 import com.forcetower.playtime.ds.DataSource;
+import com.forcetower.playtime.ds.SimilarDataSource;
 import com.forcetower.playtime.rep.res.NetworkBoundResource;
 import com.forcetower.playtime.utils.DateUtils;
 
@@ -87,7 +91,17 @@ public class TitlesRepository {
         return getTitles(dataSource);
     }
 
-    private PagedList<Title> getTitles(DataSource dataSource) {
+    public PagedList<Title> loadSimilarMovies(long id) {
+        SimilarDataSource dataSource = new SimilarDataSource(0, id, database, tmdbService, executors);
+        return getTitles(dataSource);
+    }
+
+    public PagedList<Title> loadSimilarSeries(long id) {
+        SimilarDataSource dataSource = new SimilarDataSource(1, id, database, tmdbService, executors);
+        return getTitles(dataSource);
+    }
+
+    private PagedList<Title> getTitles(androidx.paging.DataSource<Integer, Title> dataSource) {
         PagedList.Config config = new PagedList.Config.Builder()
                 .setPageSize(20)
                 .setEnablePlaceholders(true)
@@ -135,6 +149,13 @@ public class TitlesRepository {
                         }
                     }
                 }
+
+                List<Integer> episodeRunTime = item.getEpisodeRunTime();
+                if (episodeRunTime != null && !episodeRunTime.isEmpty() && !isMovie) {
+                    item.setRuntime(episodeRunTime.get(0));
+                    Timber.d("Runtime match condition");
+                }
+
                 database.titleGenreDao().insertSingleTitle(item);
 
                 try {
@@ -143,6 +164,10 @@ public class TitlesRepository {
                     database.castDao().insert(cast);
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+
+                if (!isMovie) {
+                    database.tvSeasonDao().insertTVSeasons(item);
                 }
             }
 
@@ -161,7 +186,7 @@ public class TitlesRepository {
             @Override
             protected LiveData<ApiResponse<Title>> createCall() {
                 if (isMovie) return tmdbService.getMovieDetails(titleId, "videos,credits");
-                else         return tmdbService.getSeriesDetails(titleId);
+                else         return tmdbService.getSeriesDetails(titleId, "videos,credits");
             }
         }.asLiveData();
     }
@@ -170,7 +195,8 @@ public class TitlesRepository {
         List<Genre> genres = title.getGenreList();
         StringBuilder builder = new StringBuilder();
         if (genres != null) {
-            for (int i = 0; i < genres.size(); i++) {
+            int size = genres.size();
+            for (int i = 0; i < (size > 3 ? 3 : size); i++) {
                 if (i == 0) {
                     builder.append(genres.get(i).getName());
                 } else {
@@ -249,5 +275,20 @@ public class TitlesRepository {
 
     public LiveData<List<Cast>> getCast(long titleId) {
         return database.castDao().getTitleCast(titleId);
+    }
+
+    public LiveData<List<TitleWatchlist>> getWatchlist() {
+        return database.watchlistItemDao().getWatchlist();
+    }
+
+    public void markAsWatched(long titleId, int watchlistId, boolean isMovie) {
+        executors.diskIO().execute(() -> {
+            database.watchlistItemDao().deleteById(watchlistId);
+            database.titleWatchDao().insert(new TitleWatch(System.currentTimeMillis(), titleId, isMovie));
+        });
+    }
+
+    public LiveData<List<TVSeason>> getSeasons(long titleId) {
+        return database.tvSeasonDao().getSeasons(titleId);
     }
 }

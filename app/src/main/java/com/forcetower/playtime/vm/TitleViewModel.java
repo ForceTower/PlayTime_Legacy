@@ -3,7 +3,9 @@ package com.forcetower.playtime.vm;
 import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Genre;
+import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.db.relations.TitleWatchlist;
 import com.forcetower.playtime.rep.TitlesRepository;
 import com.forcetower.playtime.rep.SeriesRepository;
 
@@ -59,5 +61,23 @@ public class TitleViewModel extends ViewModel {
 
     public LiveData<List<Cast>> getCast(long titleId) {
         return titlesRepository.getCast(titleId);
+    }
+
+    public LiveData<List<TitleWatchlist>> getWatchlist() {
+        return titlesRepository.getWatchlist();
+    }
+
+    public void markAsWatched(TitleWatchlist item) {
+        titlesRepository.markAsWatched(item.getTitle().getUid(), item.getId(), item.getTitle().isMovie());
+    }
+
+    public PagedList<Title> getMoviesAlike(long titleId, boolean isMovie) {
+        return isMovie
+                ? titlesRepository.loadSimilarMovies(titleId)
+                : titlesRepository.loadSimilarSeries(titleId);
+    }
+
+    public LiveData<List<TVSeason>> getSeasons(long titleId) {
+        return titlesRepository.getSeasons(titleId);
     }
 }

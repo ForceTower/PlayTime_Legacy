@@ -21,7 +21,7 @@ public class WatchlistAdapter extends ListAdapter<TitleWatchlist, WatchlistAdapt
         super(new DiffUtil.ItemCallback<TitleWatchlist>() {
             @Override
             public boolean areItemsTheSame(@NonNull TitleWatchlist oldItem, @NonNull TitleWatchlist newItem) {
-                return oldItem.getUid() == newItem.getUid();
+                return oldItem.getId() == newItem.getId();
             }
 
             @Override
