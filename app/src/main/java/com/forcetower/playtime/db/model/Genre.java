@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
 public class Genre {
     @PrimaryKey
     @SerializedName(value = "id")
-    private long uid;
+    private int uid;
     private String name;
 
     public Genre(String name) {
@@ -18,16 +18,16 @@ public class Genre {
     }
 
     @Ignore
-    public Genre(long uid, String name) {
+    public Genre(int uid, String name) {
         this.uid = uid;
         this.name = name;
     }
 
-    public long getUid() {
+    public int getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(int uid) {
         this.uid = uid;
     }
 

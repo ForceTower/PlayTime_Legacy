@@ -21,6 +21,4 @@ public interface PlayService {
     LiveData<ApiResponse<AccessToken>> loginFacebook(@Body Credentials.FacebookCredentials credentials);
     @GET("me")
     LiveData<ApiResponse<User>> me();
-    @GET("movies/popular")
-    Call<List<Title>> getPopularMovies(int page);
 }

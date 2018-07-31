@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9466b23f5617e9ea5fa594858afd0735",
+    "identityHash": "690558187eacc5b4f6ebf7259289df5a",
     "entities": [
       {
         "tableName": "AccessToken",
@@ -153,11 +153,192 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Title",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `name` TEXT, `image` TEXT, `trailer` TEXT, `rating` REAL NOT NULL, `releaseDate` TEXT, `description` TEXT, `genres` TEXT, `watchCount` INTEGER NOT NULL, `classification` TEXT, `runtime` INTEGER NOT NULL, `imageHorizontal` TEXT, `movie` INTEGER NOT NULL, `thumbnail` TEXT, `likes` INTEGER NOT NULL, `colorPalette` INTEGER NOT NULL, `hasColorPalette` INTEGER NOT NULL, PRIMARY KEY(`uid`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "trailer",
+            "columnName": "trailer",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "releaseDate",
+            "columnName": "releaseDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genres",
+            "columnName": "genres",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "watchCount",
+            "columnName": "watchCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "classification",
+            "columnName": "classification",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "runtime",
+            "columnName": "runtime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageHorizontal",
+            "columnName": "imageHorizontal",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "movie",
+            "columnName": "movie",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnail",
+            "columnName": "thumbnail",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "likes",
+            "columnName": "likes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "colorPalette",
+            "columnName": "colorPalette",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasColorPalette",
+            "columnName": "hasColorPalette",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TitleGenre",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title_id` INTEGER NOT NULL, `genre_id` INTEGER NOT NULL, FOREIGN KEY(`title_id`) REFERENCES `Title`(`uid`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`genre_id`) REFERENCES `Genre`(`uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titleId",
+            "columnName": "title_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "genreId",
+            "columnName": "genre_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_TitleGenre_title_id_genre_id",
+            "unique": true,
+            "columnNames": [
+              "title_id",
+              "genre_id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_TitleGenre_title_id_genre_id` ON `${TABLE_NAME}` (`title_id`, `genre_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Title",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "title_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          },
+          {
+            "table": "Genre",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "genre_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9466b23f5617e9ea5fa594858afd0735\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"690558187eacc5b4f6ebf7259289df5a\")"
     ]
   }
 }

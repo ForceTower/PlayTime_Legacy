@@ -17,17 +17,21 @@ public class AppExecutors {
     private final Executor networkIO;
     private final Executor mainThread;
     private final Executor others;
+    private final Executor paging;
 
-    public AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread, Executor others) {
+    public AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread, Executor others, Executor paging) {
         this.diskIO = diskIO;
         this.networkIO = networkIO;
         this.mainThread = mainThread;
         this.others = others;
+        this.paging = paging;
     }
 
     @Inject
     public AppExecutors() {
-        this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(3), new MainThreadExecutor(), Executors.newSingleThreadExecutor());
+        this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(3),
+                new MainThreadExecutor(), Executors.newSingleThreadExecutor(),
+                Executors.newFixedThreadPool(4));
     }
 
     public Executor diskIO() {
@@ -44,6 +48,10 @@ public class AppExecutors {
 
     public Executor others() {
         return others;
+    }
+
+    public Executor paging() {
+        return paging;
     }
 
     private static class MainThreadExecutor implements Executor {

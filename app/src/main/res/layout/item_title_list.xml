@@ -31,7 +31,7 @@
                     android:layout_marginEnd="0dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
-                    app:imageUrl="@{title.image}"
+                    app:imageUrl="@{title.imageHorizontal != null ? title.imageHorizontal : title.image}"
                     tools:src="@sample/the_incredible_2.png"
                     app:layout_constraintDimensionRatio="H,16:9"
                     app:layout_constraintStart_toStartOf="parent"

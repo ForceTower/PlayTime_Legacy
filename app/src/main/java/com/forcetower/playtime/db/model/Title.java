@@ -1,29 +1,45 @@
 package com.forcetower.playtime.db.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import timber.log.Timber;
 
 @Entity
 public class Title {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @SerializedName(value = "id")
     private long uid;
+    @SerializedName(value = "title", alternate = "name")
     private String name;
+    @SerializedName(value = "poster_path")
     private String image;
     private String trailer;
+    @SerializedName(value = "vote_average")
     private float rating;
+    @SerializedName(value = "release_date", alternate = "first_air_date")
     private String releaseDate;
+    @SerializedName(value = "overview")
     private String description;
     private String genres;
     private int watchCount;
     private String classification;
     private int runtime;
+    @SerializedName(value = "backdrop_path")
     private String imageHorizontal;
     private boolean movie;
     private String thumbnail;
     private int likes;
     private int colorPalette;
     private boolean hasColorPalette;
+
+    @Ignore
+    @SerializedName("genre_ids")
+    private List<Integer> genreIds;
 
     public Title(String name, String image, String trailer, float rating, String releaseDate) {
         this.name = name;
@@ -182,5 +198,18 @@ public class Title {
 
     public boolean getHasColorPalette() {
         return hasColorPalette;
+    }
+
+    public List<Integer> getGenreIds() {
+        return genreIds;
+    }
+
+    public void setGenreIds(List<Integer> genreIds) {
+        this.genreIds = genreIds;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

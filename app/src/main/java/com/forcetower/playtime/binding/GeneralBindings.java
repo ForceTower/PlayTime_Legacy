@@ -13,6 +13,7 @@ public class GeneralBindings {
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView imageView, String url) {
         if (url != null) {
+            if (url.startsWith("/")) url = "https://image.tmdb.org/t/p/w780" + url;
             Picasso.with(imageView.getContext())
                     .load(url)
                     .into(imageView);

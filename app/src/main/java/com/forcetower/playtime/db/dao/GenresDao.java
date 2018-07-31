@@ -18,4 +18,7 @@ public interface GenresDao {
 
     @Query("SELECT * FROM Genre")
     LiveData<List<Genre>> loadAll();
+
+    @Query("SELECT * FROM Genre")
+    List<Genre> loadAllDirect();
 }

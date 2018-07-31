@@ -9,11 +9,11 @@ import com.forcetower.playtime.db.model.Title;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TitleAdapter extends ListAdapter<Title, TitleAdapter.TitleHolder> {
+public class TitleAdapter extends PagedListAdapter<Title, TitleAdapter.TitleHolder> {
 
     public TitleAdapter(@NonNull DiffUtil.ItemCallback<Title> diffCallback) {
         super(diffCallback);
