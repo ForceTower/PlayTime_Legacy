@@ -65,6 +65,7 @@ public class TitleAlikeFragment extends Fragment {
     private TitleClickListener titleClickListener = (title, position, view) -> {
         Intent intent = new Intent(requireContext(), TitleDetailsActivity.class);
         intent.putExtra("title_id", title.getUid());
+        intent.putExtra("is_movie", title.isMovie());
         startActivity(intent);
     };
 }

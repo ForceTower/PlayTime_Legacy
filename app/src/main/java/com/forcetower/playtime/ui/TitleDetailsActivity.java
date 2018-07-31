@@ -137,6 +137,9 @@ public class TitleDetailsActivity extends BaseActivity implements HasSupportFrag
 
     private void prepareImageAndColors(Title title) {
         String url = title.getImageHorizontal();
+        if (url == null) url = title.getImage();
+        if (url == null) return;
+
         if (url.startsWith("/")) url = "https://image.tmdb.org/t/p/w780" + url;
         Glide.with(this).load(url)
                 .listener(new RequestListener<Drawable>() {

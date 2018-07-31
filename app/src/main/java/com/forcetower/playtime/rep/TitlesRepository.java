@@ -99,10 +99,14 @@ public class TitlesRepository {
                 item.setMovie(isMovie);
                 setGenres(item);
                 VideoResults videos = item.getVideos();
-                for (TitleVideo video : videos.getResults()) {
-                    if (video.getSite().equalsIgnoreCase("youtube")) {
-                        item.setTrailer("https://www.youtube.com/watch?v=" + video.getKey());
-                        break;
+                if (videos != null) {
+                    Timber.d("Videos not null");
+                    for (TitleVideo video : videos.getResults()) {
+                        if (video.getSite().equalsIgnoreCase("youtube")) {
+                            item.setTrailer("https://www.youtube.com/watch?v=" + video.getKey());
+                            Timber.d("Youtube video found");
+                            break;
+                        }
                     }
                 }
                 database.titleGenreDao().insertSingleTitle(item);
@@ -122,7 +126,7 @@ public class TitlesRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<Title>> createCall() {
-                if (isMovie) return tmdbService.getMovieDetails(titleId, "trailers");
+                if (isMovie) return tmdbService.getMovieDetails(titleId, "videos");
                 else         return tmdbService.getSeriesDetails(titleId);
             }
         }.asLiveData();

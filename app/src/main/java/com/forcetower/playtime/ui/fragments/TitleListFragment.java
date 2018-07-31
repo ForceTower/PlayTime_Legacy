@@ -93,6 +93,7 @@ public class TitleListFragment extends NavigationFragment implements Injectable 
     private TitleClickListener titleClickListener = (title, position, view) -> {
         Intent intent = new Intent(requireContext(), TitleDetailsActivity.class);
         intent.putExtra("title_id", title.getUid());
+        intent.putExtra("is_movie", title.isMovie());
         startActivity(intent);
     };
 }
