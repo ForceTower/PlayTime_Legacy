@@ -34,4 +34,7 @@ public interface TitleDao {
 
     @Update(onConflict = REPLACE)
     void update(Title title);
+
+    @Query("UPDATE Title SET classification = :companion WHERE uid = :titleId")
+    void setClassification(long titleId, String companion);
 }

@@ -1,6 +1,7 @@
 package com.forcetower.playtime.db.model;
 
 import com.forcetower.playtime.api.tmdb.Company;
+import com.forcetower.playtime.api.tmdb.Credits;
 import com.forcetower.playtime.api.tmdb.VideoResults;
 import com.google.gson.annotations.SerializedName;
 
@@ -60,6 +61,9 @@ public class Title {
 
     @Ignore
     private VideoResults videos;
+
+    @Ignore
+    private Credits credits;
 
     public Title(String name, String image, String trailer, float rating, String releaseDate) {
         this.name = name;
@@ -295,5 +299,13 @@ public class Title {
 
     public void setGenreList(List<Genre> genreList) {
         this.genreList = genreList;
+    }
+
+    public Credits getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Credits credits) {
+        this.credits = credits;
     }
 }

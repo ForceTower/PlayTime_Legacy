@@ -1,6 +1,7 @@
 package com.forcetower.playtime.vm;
 
 import com.forcetower.playtime.api.adapter.Resource;
+import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Genre;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.rep.TitlesRepository;
@@ -46,5 +47,17 @@ public class TitleViewModel extends ViewModel {
 
     public LiveData<Resource<Title>> getTitle(long titleId, boolean isMovie) {
         return titlesRepository.getTitleDetails(titleId, isMovie);
+    }
+
+    public LiveData<Title> getTitleFromDatabase(long titleId, boolean isMovie) {
+        return titlesRepository.getTitleDetailsFromDatabase(titleId, isMovie);
+    }
+
+    public LiveData<Resource<Title>> getTitleRating(long titleId, boolean isMovie) {
+        return titlesRepository.getTitleRating(titleId, isMovie);
+    }
+
+    public LiveData<List<Cast>> getCast(long titleId) {
+        return titlesRepository.getCast(titleId);
     }
 }

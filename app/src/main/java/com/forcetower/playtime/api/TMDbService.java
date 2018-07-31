@@ -3,6 +3,7 @@ package com.forcetower.playtime.api;
 import com.forcetower.playtime.api.adapter.ApiResponse;
 import com.forcetower.playtime.api.tmdb.GenreResponse;
 import com.forcetower.playtime.api.tmdb.PopularResult;
+import com.forcetower.playtime.api.tmdb.TitleCertification;
 import com.forcetower.playtime.db.model.Title;
 
 import androidx.lifecycle.LiveData;
@@ -24,4 +25,10 @@ public interface TMDbService {
     LiveData<ApiResponse<Title>> getMovieDetails(@Path("movie_id") long movieId, @Query("append_to_response") String append);
     @GET("tv/{tv_id}")
     LiveData<ApiResponse<Title>> getSeriesDetails(@Path("tv_id") long tvId);
+    @GET("movie/{movie_id}/release_dates")
+    LiveData<ApiResponse<TitleCertification>> getMovieRating(@Path("movie_id") long movieId);
+    @GET("/tv/{tv_id}/content_ratings")
+    LiveData<ApiResponse<TitleCertification>> getSeriesRating(@Path("tv_id") long tvId);
+
+
 }

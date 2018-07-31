@@ -8,23 +8,32 @@ import android.view.ViewGroup;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentTitleCastBinding;
 import com.forcetower.playtime.db.model.Cast;
+import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.adapter.CastAdapter;
 import com.forcetower.playtime.ui.widget.DividerItemDecorator;
 import com.forcetower.playtime.utils.MockUtils;
+import com.forcetower.playtime.vm.PlayViewModelFactory;
+import com.forcetower.playtime.vm.TitleViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import timber.log.Timber;
 
-public class TitleCastFragment extends Fragment {
+public class TitleCastFragment extends Fragment implements Injectable {
+    @Inject
+    PlayViewModelFactory viewModelFactory;
+
     private FragmentTitleCastBinding binding;
     private CastAdapter adapter;
 
@@ -61,6 +70,8 @@ public class TitleCastFragment extends Fragment {
         if (arguments != null) {
             long titleId = arguments.getLong("title_id");
             populateInterface(MockUtils.getCast());
+            TitleViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
+            viewModel.getCast(titleId).observe(this, this::populateInterface);
         } else {
             Timber.e("Arguments are null...");
         }

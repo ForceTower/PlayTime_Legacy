@@ -109,6 +109,7 @@ public class TitleDetailsActivity extends BaseActivity implements HasSupportFrag
 
         Bundle bundle = new Bundle();
         bundle.putLong("title_id", title.getUid());
+        bundle.putBoolean("is_movie", title.isMovie());
 
         Fragment overview = new TitleDetailsOverviewFragment();
         overview.setArguments(bundle);

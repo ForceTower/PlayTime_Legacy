@@ -10,6 +10,7 @@ import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
@@ -33,8 +34,11 @@ public abstract class TitleGenreDao {
     @Insert(onConflict = REPLACE)
     public abstract void insertTitle(Title title);
 
+    @Update(onConflict = REPLACE)
+    public abstract void updateTitle(Title title);
+
     public void insertSingleTitle(Title title) {
-        insertTitle(title);
+        updateTitle(title);
         List<TitleGenre> genres = new ArrayList<>();
         if (title.getGenreList() != null) {
             for (Genre genre : title.getGenreList()) genres.add(new TitleGenre(title.getUid(), genre.getUid()));
