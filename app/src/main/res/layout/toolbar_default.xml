@@ -41,6 +41,7 @@
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="end|center_vertical"
+                android:transitionName="@string/user_image_transition"
                 android:padding="8dp"
                 android:layout_marginEnd="8dp"
                 tools:src="@tools:sample/avatars"/>

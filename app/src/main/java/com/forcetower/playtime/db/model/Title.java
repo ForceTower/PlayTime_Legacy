@@ -1,5 +1,7 @@
 package com.forcetower.playtime.db.model;
 
+import com.forcetower.playtime.api.tmdb.Company;
+import com.forcetower.playtime.api.tmdb.VideoResults;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class Title {
     private String releaseDate;
     @SerializedName(value = "overview")
     private String description;
+    @SerializedName(value = "ignored_genres")
     private String genres;
     private int watchCount;
     private String classification;
@@ -35,11 +38,28 @@ public class Title {
     private String thumbnail;
     private int likes;
     private int colorPalette;
+    private int budget;
+    private String homepage;
+    @SerializedName(value = "imdb_id")
+    private String imdbId;
+    private String status;
+    private String tagline;
     private boolean hasColorPalette;
 
     @Ignore
-    @SerializedName("genre_ids")
+    @SerializedName(value = "genre_ids")
     private List<Integer> genreIds;
+
+    @Ignore
+    @SerializedName(value = "genres")
+    private List<Genre> genreList;
+
+    @Ignore
+    @SerializedName(value = "production_companies")
+    private List<Company> companies;
+
+    @Ignore
+    private VideoResults videos;
 
     public Title(String name, String image, String trailer, float rating, String releaseDate) {
         this.name = name;
@@ -211,5 +231,69 @@ public class Title {
     @Override
     public String toString() {
         return getName();
+    }
+
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
+
+    public List<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
+
+    public VideoResults getVideos() {
+        return videos;
+    }
+
+    public void setVideos(VideoResults videos) {
+        this.videos = videos;
+    }
+
+    public List<Genre> getGenreList() {
+        return genreList;
+    }
+
+    public void setGenreList(List<Genre> genreList) {
+        this.genreList = genreList;
     }
 }

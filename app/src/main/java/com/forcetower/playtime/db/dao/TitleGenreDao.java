@@ -1,5 +1,6 @@
 package com.forcetower.playtime.db.dao;
 
+import com.forcetower.playtime.db.model.Genre;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.model.TitleGenre;
 
@@ -31,4 +32,13 @@ public abstract class TitleGenreDao {
 
     @Insert(onConflict = REPLACE)
     public abstract void insertTitle(Title title);
+
+    public void insertSingleTitle(Title title) {
+        insertTitle(title);
+        List<TitleGenre> genres = new ArrayList<>();
+        if (title.getGenreList() != null) {
+            for (Genre genre : title.getGenreList()) genres.add(new TitleGenre(title.getUid(), genre.getUid()));
+        }
+        insert(genres);
+    }
 }

@@ -12,9 +12,6 @@ import com.forcetower.playtime.databinding.ItemTitleCardBinding;
 import com.forcetower.playtime.db.model.Title;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
@@ -43,4 +40,5 @@ public class RecommendationsAdapter extends ArrayAdapter<Title> {
             return contentView;
         }
     }
+
 }

@@ -6,6 +6,8 @@ import com.forcetower.playtime.api.TMDbService;
 import com.forcetower.playtime.api.adapter.ApiResponse;
 import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.api.tmdb.GenreResponse;
+import com.forcetower.playtime.api.tmdb.TitleVideo;
+import com.forcetower.playtime.api.tmdb.VideoResults;
 import com.forcetower.playtime.db.PlayDatabase;
 import com.forcetower.playtime.db.model.Genre;
 import com.forcetower.playtime.db.model.Title;
@@ -87,5 +89,59 @@ public class TitlesRepository {
                 .setNotifyExecutor(executors.mainThread())
                 .setFetchExecutor(executors.paging())
                 .build();
+    }
+
+    public LiveData<Resource<Title>> getTitleDetails(long titleId, boolean isMovie) {
+        return new NetworkBoundResource<Title, Title>(executors) {
+            @Override
+            protected void saveCallResult(@NonNull Title item) {
+                Timber.d("Fetched Item: " + item);
+                item.setMovie(isMovie);
+                setGenres(item);
+                VideoResults videos = item.getVideos();
+                for (TitleVideo video : videos.getResults()) {
+                    if (video.getSite().equalsIgnoreCase("youtube")) {
+                        item.setTrailer("https://www.youtube.com/watch?v=" + video.getKey());
+                        break;
+                    }
+                }
+                database.titleGenreDao().insertSingleTitle(item);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable Title data) {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<Title> loadFromDb() {
+                return database.titleDao().getTitleById(titleId);
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<Title>> createCall() {
+                if (isMovie) return tmdbService.getMovieDetails(titleId, "trailers");
+                else         return tmdbService.getSeriesDetails(titleId);
+            }
+        }.asLiveData();
+    }
+
+    private void setGenres(Title title) {
+        List<Genre> genres = title.getGenreList();
+        StringBuilder builder = new StringBuilder();
+        if (genres != null) {
+            for (int i = 0; i < genres.size(); i++) {
+                if (i == 0) {
+                    builder.append(genres.get(i).getName());
+                } else {
+                    builder.append(" / ").append(genres.get(i));
+                }
+            }
+        }
+
+        String string = builder.toString();
+        title.setGenres(string);
     }
 }

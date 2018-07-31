@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.forcetower.playtime.R;
+import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.databinding.ActivityTitleDetailsBinding;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.ui.fragments.SerieSeasonsFragment;
@@ -20,21 +21,35 @@ import com.forcetower.playtime.ui.fragments.TitleCommentsFragment;
 import com.forcetower.playtime.ui.fragments.TitleDetailsOverviewFragment;
 import com.forcetower.playtime.utils.AnimUtils;
 import com.forcetower.playtime.utils.MockUtils;
+import com.forcetower.playtime.vm.PlayViewModelFactory;
+import com.forcetower.playtime.vm.TitleViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.palette.graphics.Palette;
 import androidx.viewpager.widget.ViewPager;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+import timber.log.Timber;
 
 import static com.forcetower.playtime.utils.ColorUtils.isColorDark;
 
-public class TitleDetailsActivity extends BaseActivity {
+public class TitleDetailsActivity extends BaseActivity implements HasSupportFragmentInjector {
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
+    @Inject
+    PlayViewModelFactory viewModelFactory;
+
     private ActivityTitleDetailsBinding binding;
     private TitleDetailsAdapter adapter;
     private UIAlphaFrame frame;
@@ -47,7 +62,20 @@ public class TitleDetailsActivity extends BaseActivity {
 
         prepareInterface();
         setupViewPager();
-        setupTitle(MockUtils.getTitle());
+
+        TitleViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
+        long titleId = getIntent().getLongExtra("title_id", 0);
+        boolean isMovie = getIntent().getBooleanExtra("is_movie", true);
+        viewModel.getTitle(titleId, isMovie).observe(this, this::onTitleUpdate);
+    }
+
+    private void onTitleUpdate(Resource<Title> resource) {
+        if (resource.data != null)
+            setupTitle(resource.data);
+
+        Timber.d("Resource Status: " + resource.status);
+        Timber.d("Resource Code: " + resource.code);
+        Timber.d("Resource message: " + resource.message);
     }
 
     private void prepareInterface() {
@@ -108,7 +136,9 @@ public class TitleDetailsActivity extends BaseActivity {
     }
 
     private void prepareImageAndColors(Title title) {
-        Glide.with(this).load(title.getImageHorizontal())
+        String url = title.getImageHorizontal();
+        if (url.startsWith("/")) url = "https://image.tmdb.org/t/p/w780" + url;
+        Glide.with(this).load(url)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -137,6 +167,11 @@ public class TitleDetailsActivity extends BaseActivity {
                     }
                 })
                 .into(binding.titleImageHorizontal);
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentInjector;
     }
 
     private class TitleDetailsAdapter extends FragmentPagerAdapter {

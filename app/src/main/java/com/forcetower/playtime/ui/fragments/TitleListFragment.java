@@ -1,5 +1,6 @@
 package com.forcetower.playtime.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.NavigationFragment;
+import com.forcetower.playtime.ui.TitleClickListener;
+import com.forcetower.playtime.ui.TitleDetailsActivity;
 import com.forcetower.playtime.ui.adapter.TitleDiff;
 import com.forcetower.playtime.utils.MockUtils;
 import com.forcetower.playtime.R;
@@ -22,6 +25,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -63,6 +67,7 @@ public class TitleListFragment extends NavigationFragment implements Injectable 
         });
 
         adapter = new TitleAdapter(new TitleDiff());
+        adapter.setTitleClickListener(titleClickListener);
         binding.recyclerView.setAdapter(adapter);
     }
 
@@ -84,4 +89,10 @@ public class TitleListFragment extends NavigationFragment implements Injectable 
             Timber.e("No arguments");
         }
     }
+
+    private TitleClickListener titleClickListener = (title, position, view) -> {
+        Intent intent = new Intent(requireContext(), TitleDetailsActivity.class);
+        intent.putExtra("title_id", title.getUid());
+        startActivity(intent);
+    };
 }

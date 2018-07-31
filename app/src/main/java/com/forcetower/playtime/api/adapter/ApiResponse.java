@@ -39,6 +39,7 @@ public class ApiResponse<T> {
             if (response.errorBody() != null) {
                 try {
                     message = response.errorBody().string();
+                    Timber.d("Message: " + message);
                     if (message != null) aError = new Gson().fromJson(message, ActionError.class);
                 } catch (Exception ignored) {
                     Timber.e(ignored, "error while parsing response");

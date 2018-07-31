@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
@@ -15,6 +16,9 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 public interface TitleDao {
     @Insert(onConflict = REPLACE)
     void insert(List<Title> titles);
+
+    @Insert(onConflict = REPLACE)
+    void insert(Title... titles);
 
     @Query("SELECT * FROM Title")
     LiveData<List<Title>> getTitles();
@@ -24,4 +28,10 @@ public interface TitleDao {
 
     @Query("SELECT * FROM Title WHERE movie = 0")
     LiveData<List<Title>> getSeries();
+
+    @Query("SELECT * FROM Title WHERE uid = :titleId")
+    LiveData<Title> getTitleById(long titleId);
+
+    @Update(onConflict = REPLACE)
+    void update(Title title);
 }

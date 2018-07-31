@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "690558187eacc5b4f6ebf7259289df5a",
+    "identityHash": "af4aeee0f1cdeaea40d21e3c1dda03ae",
     "entities": [
       {
         "tableName": "AccessToken",
@@ -156,7 +156,7 @@
       },
       {
         "tableName": "Title",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `name` TEXT, `image` TEXT, `trailer` TEXT, `rating` REAL NOT NULL, `releaseDate` TEXT, `description` TEXT, `genres` TEXT, `watchCount` INTEGER NOT NULL, `classification` TEXT, `runtime` INTEGER NOT NULL, `imageHorizontal` TEXT, `movie` INTEGER NOT NULL, `thumbnail` TEXT, `likes` INTEGER NOT NULL, `colorPalette` INTEGER NOT NULL, `hasColorPalette` INTEGER NOT NULL, PRIMARY KEY(`uid`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `name` TEXT, `image` TEXT, `trailer` TEXT, `rating` REAL NOT NULL, `releaseDate` TEXT, `description` TEXT, `genres` TEXT, `watchCount` INTEGER NOT NULL, `classification` TEXT, `runtime` INTEGER NOT NULL, `imageHorizontal` TEXT, `movie` INTEGER NOT NULL, `thumbnail` TEXT, `likes` INTEGER NOT NULL, `colorPalette` INTEGER NOT NULL, `budget` INTEGER NOT NULL, `homepage` TEXT, `imdbId` TEXT, `status` TEXT, `tagline` TEXT, `hasColorPalette` INTEGER NOT NULL, PRIMARY KEY(`uid`))",
         "fields": [
           {
             "fieldPath": "uid",
@@ -255,6 +255,36 @@
             "notNull": true
           },
           {
+            "fieldPath": "budget",
+            "columnName": "budget",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "homepage",
+            "columnName": "homepage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "imdbId",
+            "columnName": "imdbId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tagline",
+            "columnName": "tagline",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "hasColorPalette",
             "columnName": "hasColorPalette",
             "affinity": "INTEGER",
@@ -338,7 +368,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"690558187eacc5b4f6ebf7259289df5a\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"af4aeee0f1cdeaea40d21e3c1dda03ae\")"
     ]
   }
 }

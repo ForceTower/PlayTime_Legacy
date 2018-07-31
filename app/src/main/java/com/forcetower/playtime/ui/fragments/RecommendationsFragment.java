@@ -1,11 +1,14 @@
 package com.forcetower.playtime.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.forcetower.playtime.ui.NavigationFragment;
+import com.forcetower.playtime.ui.TitleClickListener;
+import com.forcetower.playtime.ui.TitleDetailsActivity;
 import com.forcetower.playtime.utils.MockUtils;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentRecommendationsBinding;
@@ -76,8 +79,10 @@ public class RecommendationsFragment extends NavigationFragment {
             @Override
             public void onCardClicked(int index) {
                 Title item = adapter.getItem(index);
-                if (item != null)
-                Timber.d("Item clicked: " + item);
+                if (item != null) {
+                    Timber.d("Item clicked: " + item);
+                    titleClickListener.onTitleClick(item, index, null);
+                }
             }
         });
     }
@@ -108,4 +113,10 @@ public class RecommendationsFragment extends NavigationFragment {
         adapter.clear();
         adapter.addAll(data);
     }
+
+    private TitleClickListener titleClickListener = (title, position, view) -> {
+        Intent intent = new Intent(requireContext(), TitleDetailsActivity.class);
+        intent.putExtra("title_id", title.getUid());
+        startActivity(intent);
+    };
 }

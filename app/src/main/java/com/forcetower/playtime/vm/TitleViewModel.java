@@ -43,4 +43,8 @@ public class TitleViewModel extends ViewModel {
     public PagedList<Title> getSeries() {
         return titlesRepository.loadSeries();
     }
+
+    public LiveData<Resource<Title>> getTitle(long titleId, boolean isMovie) {
+        return titlesRepository.getTitleDetails(titleId, isMovie);
+    }
 }

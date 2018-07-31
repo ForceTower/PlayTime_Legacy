@@ -89,6 +89,7 @@ public class AppModule {
         return chain -> {
             Request oRequest = chain.request();
             String host = oRequest.url().host();
+            Timber.d("Request to: " + oRequest.url());
             if (host.contains(Constants.PLAY_TIME_URL)) {
                 Headers.Builder builder = oRequest.headers().newBuilder()
                         .add("Accept", "application/json");
