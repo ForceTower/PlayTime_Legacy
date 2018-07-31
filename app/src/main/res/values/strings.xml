@@ -67,4 +67,6 @@
     <string name="invalid_credentials">Credenciais Incorretas</string>
     <string name="title_image_transition">title_image_transition</string>
     <string name="no_movie_on_watchlist">Nenhum item foi adicionado a lista de assistir depois\nSelecione um filme que ele aparecerá aqui</string>
+    <string name="title_added_to_watchlist">%1$s foi adicionado à lista</string>
+    <string name="title_marked_as_watched">%1$s foi marcado como assistido</string>
 </resources>

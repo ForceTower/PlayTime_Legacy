@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5651c4aa11f06d215cca7ba20a789f56",
+    "identityHash": "dd7f5612ab837bfb118244cd841943a0",
     "entities": [
       {
         "tableName": "AccessToken",
@@ -623,11 +623,70 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "TitleImage",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `image` TEXT, `width` TEXT, `titleId` INTEGER NOT NULL, FOREIGN KEY(`titleId`) REFERENCES `Title`(`uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "titleId",
+            "columnName": "titleId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_TitleImage_titleId",
+            "unique": false,
+            "columnNames": [
+              "titleId"
+            ],
+            "createSql": "CREATE  INDEX `index_TitleImage_titleId` ON `${TABLE_NAME}` (`titleId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Title",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "titleId"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"5651c4aa11f06d215cca7ba20a789f56\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"dd7f5612ab837bfb118244cd841943a0\")"
     ]
   }
 }

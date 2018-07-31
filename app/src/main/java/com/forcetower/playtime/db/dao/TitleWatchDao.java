@@ -18,4 +18,7 @@ public interface TitleWatchDao {
 
     @Query("SELECT * FROM TitleWatch")
     LiveData<List<TitleWatch>> getWatched();
+
+    @Query("DELETE FROM TitleWatch WHERE title_id = :titleId AND is_movie = :isMovie")
+    void deleteIfExisting(long titleId, boolean isMovie);
 }

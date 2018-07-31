@@ -24,8 +24,10 @@ public class SnackbarHelper {
         TextView tv = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
         tv.setTypeface(font);
 
-        TextView at = snackbarView.findViewById(com.google.android.material.R.id.snackbar_action);
-        at.setTypeface(font, Typeface.BOLD);
+        try {
+            TextView at = snackbarView.findViewById(com.google.android.material.R.id.snackbar_action);
+            at.setTypeface(font, Typeface.BOLD);
+        } catch (Exception ignored){}
     }
 
 

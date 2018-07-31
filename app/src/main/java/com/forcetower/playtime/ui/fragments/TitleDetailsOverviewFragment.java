@@ -1,5 +1,6 @@
 package com.forcetower.playtime.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import com.forcetower.playtime.R;
 import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.databinding.FragmentTitleDetailsOverallBinding;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.db.model.WatchlistItem;
 import com.forcetower.playtime.di.Injectable;
+import com.forcetower.playtime.ui.ImagesActivity;
+import com.forcetower.playtime.ui.NavigationFragment;
 import com.forcetower.playtime.utils.MockUtils;
 import com.forcetower.playtime.vm.PlayViewModelFactory;
 import com.forcetower.playtime.vm.TitleViewModel;
@@ -23,18 +27,43 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import timber.log.Timber;
 
-public class TitleDetailsOverviewFragment extends Fragment implements Injectable {
+public class TitleDetailsOverviewFragment extends NavigationFragment implements Injectable {
     @Inject
     PlayViewModelFactory viewModelFactory;
 
     private FragmentTitleDetailsOverallBinding binding;
+    private TitleViewModel viewModel;
+    private long titleId;
+    private boolean isMovie;
+    private Title title;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_title_details_overall,
                 container, false);
+
+        binding.likeLayout.setOnClickListener(v -> onWatchLater());
+        binding.likeLayout.setOnLongClickListener(v -> { onMarkWatched(); return true; });
+        binding.posterLayout.setOnClickListener(v -> startImagesActivity());
         return binding.getRoot();
+    }
+
+    private void startImagesActivity() {
+        Intent intent = new Intent(requireContext(), ImagesActivity.class);
+        intent.putExtra("title_id", titleId);
+        intent.putExtra("is_movie", isMovie);
+        startActivity(intent);
+    }
+
+    private void onWatchLater() {
+        viewModel.markToWatchLater(titleId, isMovie);
+        showSnack(getString(R.string.title_added_to_watchlist, title.getName()));
+    }
+
+    private void onMarkWatched() {
+        viewModel.markAsWatched(titleId, isMovie);
+        showSnack(getString(R.string.title_marked_as_watched, title.getName()));
     }
 
     @Override
@@ -42,9 +71,9 @@ public class TitleDetailsOverviewFragment extends Fragment implements Injectable
         super.onActivityCreated(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            long titleId = arguments.getLong("title_id");
-            boolean isMovie = arguments.getBoolean("is_movie");
-            TitleViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
+            titleId = arguments.getLong("title_id");
+            isMovie = arguments.getBoolean("is_movie");
+            viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
             viewModel.getTitleFromDatabase(titleId, isMovie).observe(this, this::populateInterface);
             viewModel.getTitleRating(titleId, isMovie).observe(this, this::onMovieClassificationUpdate);
         } else {
@@ -57,6 +86,7 @@ public class TitleDetailsOverviewFragment extends Fragment implements Injectable
     }
 
     private void populateInterface(Title title) {
+        this.title = title;
         binding.setTitle(title);
     }
 }

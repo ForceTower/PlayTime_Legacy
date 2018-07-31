@@ -28,4 +28,7 @@ public interface WatchlistItemDao {
 
     @Query("DELETE FROM WatchlistItem WHERE id = :id")
     void deleteById(int id);
+
+    @Query("DELETE FROM WatchlistItem WHERE title_id = :titleId")
+    void deleteIfExisting(long titleId);
 }

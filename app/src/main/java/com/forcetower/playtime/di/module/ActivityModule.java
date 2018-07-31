@@ -1,5 +1,6 @@
 package com.forcetower.playtime.di.module;
 
+import com.forcetower.playtime.ui.ImagesActivity;
 import com.forcetower.playtime.ui.MainActivity;
 import com.forcetower.playtime.ui.TitleDetailsActivity;
 import com.forcetower.playtime.ui.auth.AuthActivity;
@@ -15,4 +16,6 @@ public abstract class ActivityModule {
     abstract MainActivity mainActivity();
     @ContributesAndroidInjector(modules = DetailsFragmentModule.class)
     abstract TitleDetailsActivity titleDetailsActivity();
+    @ContributesAndroidInjector
+    abstract ImagesActivity imagesActivity();
 }

@@ -22,6 +22,7 @@ import com.forcetower.playtime.ui.fragments.TitleDetailsOverviewFragment;
 import com.forcetower.playtime.utils.AnimUtils;
 import com.forcetower.playtime.vm.PlayViewModelFactory;
 import com.forcetower.playtime.vm.TitleViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,8 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import timber.log.Timber;
+
+import static com.forcetower.playtime.utils.SnackbarHelper.configSnackbar;
 
 public class TitleDetailsActivity extends BaseActivity implements HasSupportFragmentInjector {
     @Inject
@@ -198,5 +201,12 @@ public class TitleDetailsActivity extends BaseActivity implements HasSupportFrag
         public int getCount() {
             return fragments.size();
         }
+    }
+
+    @Override
+    public void showSnack(String string) {
+        Snackbar snackbar = Snackbar.make(binding.snack, string, Snackbar.LENGTH_SHORT);
+        configSnackbar(this, snackbar);
+        snackbar.show();
     }
 }

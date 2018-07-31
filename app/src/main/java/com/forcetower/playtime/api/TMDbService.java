@@ -4,6 +4,7 @@ import com.forcetower.playtime.api.adapter.ApiResponse;
 import com.forcetower.playtime.api.tmdb.GenreResponse;
 import com.forcetower.playtime.api.tmdb.PopularResult;
 import com.forcetower.playtime.api.tmdb.TitleCertification;
+import com.forcetower.playtime.api.tmdb.TitleImages;
 import com.forcetower.playtime.db.model.Title;
 
 import androidx.lifecycle.LiveData;
@@ -33,6 +34,9 @@ public interface TMDbService {
     Call<PopularResult> getSimilarMovies(@Path("movie_id") long movieId, @Query("page") int page);
     @GET("tv/{tv_id}/similar")
     Call<PopularResult> getSimilarSeries(@Path("tv_id") long seriesId, @Query("page") int page);
-
+    @GET("movie/{movie_id}/images")
+    LiveData<ApiResponse<TitleImages>> getMovieImages(@Path("movie_id") long movieId, @Query("include_image_language") String language);
+    @GET("movie/{tv_id}/images")
+    LiveData<ApiResponse<TitleImages>> getSeriesImages(@Path("tv_id") long tvId, @Query("include_image_language") String language);
 
 }

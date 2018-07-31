@@ -8,6 +8,7 @@ import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.api.tmdb.Certification;
 import com.forcetower.playtime.api.tmdb.GenreResponse;
 import com.forcetower.playtime.api.tmdb.TitleCertification;
+import com.forcetower.playtime.api.tmdb.TitleImages;
 import com.forcetower.playtime.api.tmdb.TitleVideo;
 import com.forcetower.playtime.api.tmdb.VideoResults;
 import com.forcetower.playtime.db.PlayDatabase;
@@ -15,7 +16,9 @@ import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Genre;
 import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.db.model.TitleImage;
 import com.forcetower.playtime.db.model.TitleWatch;
+import com.forcetower.playtime.db.model.WatchlistItem;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 import com.forcetower.playtime.ds.DataSource;
 import com.forcetower.playtime.ds.SimilarDataSource;
@@ -290,5 +293,44 @@ public class TitlesRepository {
 
     public LiveData<List<TVSeason>> getSeasons(long titleId) {
         return database.tvSeasonDao().getSeasons(titleId);
+    }
+
+    public void markToWatchLater(long titleId, boolean isMovie) {
+        database.titleWatchDao().deleteIfExisting(titleId, isMovie);
+        database.watchlistItemDao().insert(new WatchlistItem(titleId, System.currentTimeMillis()));
+    }
+
+    public void markAsWatched(long titleId, boolean isMovie) {
+        database.watchlistItemDao().deleteIfExisting(titleId);
+        database.titleWatchDao().insert(new TitleWatch(System.currentTimeMillis(), titleId, isMovie));
+    }
+
+    public LiveData<Resource<List<TitleImage>>> getTitleImages(long titleId, boolean isMovie) {
+        return new NetworkBoundResource<List<TitleImage>, TitleImages>(executors) {
+            @Override
+            protected void saveCallResult(@NonNull TitleImages item) {
+                List<TitleImage> mergedList = item.getMergedList();
+                for (TitleImage im : mergedList) im.setTitleId(titleId);
+                database.titleImageDao().insert(mergedList);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable List<TitleImage> data) {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<List<TitleImage>> loadFromDb() {
+                return database.titleImageDao().getTitleImages(titleId);
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<TitleImages>> createCall() {
+                if (isMovie) return tmdbService.getMovieImages(titleId, "null");
+                else return tmdbService.getSeriesImages(titleId, "null");
+            }
+        }.asLiveData();
     }
 }

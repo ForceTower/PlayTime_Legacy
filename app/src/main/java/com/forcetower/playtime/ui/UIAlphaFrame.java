@@ -42,7 +42,7 @@ public class UIAlphaFrame {
 
         colorAnimation.addUpdateListener(animator -> {
             ColorStateList tint = ColorStateList.valueOf((int) animator.getAnimatedValue());
-            center.setBackgroundTintList(tint);
+            if (center != null) center.setBackgroundTintList(tint);
 //            bottom.setBackgroundTintList(tint);
 //            top.setBackgroundTintList(tint);
 //            start.setBackgroundTintList(tint);

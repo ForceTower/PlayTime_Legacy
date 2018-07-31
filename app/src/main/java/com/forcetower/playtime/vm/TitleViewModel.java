@@ -5,6 +5,7 @@ import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Genre;
 import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.db.model.TitleImage;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 import com.forcetower.playtime.rep.TitlesRepository;
 import com.forcetower.playtime.rep.SeriesRepository;
@@ -25,10 +26,6 @@ public class TitleViewModel extends ViewModel {
     public TitleViewModel(TitlesRepository titlesRepository, SeriesRepository seriesRepository) {
         this.titlesRepository = titlesRepository;
         this.seriesRepository = seriesRepository;
-    }
-
-    public LiveData<PagedList<Title>> getAllMovies() {
-        return null;
     }
 
     public LiveData<Resource<List<Genre>>> loadMovieGenres() {
@@ -79,5 +76,17 @@ public class TitleViewModel extends ViewModel {
 
     public LiveData<List<TVSeason>> getSeasons(long titleId) {
         return titlesRepository.getSeasons(titleId);
+    }
+
+    public void markToWatchLater(long titleId, boolean isMovie) {
+        titlesRepository.markToWatchLater(titleId, isMovie);
+    }
+
+    public void markAsWatched(long titleId, boolean isMovie) {
+        titlesRepository.markAsWatched(titleId, isMovie);
+    }
+
+    public LiveData<Resource<List<TitleImage>>> getTitleImages(long titleId, boolean isMovie) {
+        return titlesRepository.getTitleImages(titleId, isMovie);
     }
 }
