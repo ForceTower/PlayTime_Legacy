@@ -103,4 +103,12 @@ public class TitleViewModel extends ViewModel {
     public void removeFromRecommendations(long titleId) {
         titlesRepository.removeFromRecommendations(titleId);
     }
+
+    public LiveData<List<Genre>> getGenres() {
+        return titlesRepository.getGenres();
+    }
+
+    public PagedList<Title> getMoviesWithQuery(String genres, String year, String query) {
+        return titlesRepository.getMoviesWithQuery(genres, year, query);
+    }
 }

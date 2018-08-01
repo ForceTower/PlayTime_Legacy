@@ -15,10 +15,14 @@ import com.forcetower.playtime.ui.NavigationFragment;
 import com.forcetower.playtime.utils.AnimUtils;
 import com.forcetower.playtime.utils.MockUtils;
 import com.forcetower.playtime.utils.PixelUtils;
+import com.forcetower.playtime.vm.PlayViewModelFactory;
+import com.forcetower.playtime.vm.TitleViewModel;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +30,15 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import timber.log.Timber;
 
 public class SearchFragment extends NavigationFragment implements Injectable {
+    @Inject
+    PlayViewModelFactory viewModelFactory;
+
     private FragmentSearchBinding binding;
+    private TitleViewModel viewModel;
 
     @Nullable
     @Override
@@ -59,11 +68,11 @@ public class SearchFragment extends NavigationFragment implements Injectable {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < binding.categoryChips.getChildCount(); i++) {
                 Chip chip = (Chip) binding.categoryChips.getChildAt(i);
-                if (chip.isChecked()) builder.append(chip.getId()).append(";");
+                if (chip.isChecked()) builder.append(chip.getId()).append(",");
             }
 
             String str = builder.toString();
-            if (str.endsWith(";")) str = str.substring(0, str.length() - 1);
+            if (str.endsWith(",")) str = str.substring(0, str.length() - 1);
             Timber.d("ID's: " + str);
 
             Bundle bundle = new Bundle();
@@ -88,7 +97,13 @@ public class SearchFragment extends NavigationFragment implements Injectable {
                 Timber.d("Year: " + year);
             }
 
-            requireNavigation().navigate(R.id.action_to_result_page, bundle);
+            String query = binding.searchView.getQuery();
+            bundle.putString("query", query);
+            try {
+                requireNavigation().navigate(R.id.action_to_result_page, bundle);
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
         });
     }
 
@@ -104,7 +119,8 @@ public class SearchFragment extends NavigationFragment implements Injectable {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        populateChips(MockUtils.getGenres());
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
+        viewModel.getGenres().observe(this, this::populateChips);
     }
 
     private void populateChips(List<Genre> genres) {

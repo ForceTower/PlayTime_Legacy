@@ -44,4 +44,66 @@ public interface TMDbService {
     Call<PopularResult> getMoviesRecommendationsCall(@Path("movie_id") long movieId, @Query("page") int page);
     @GET("movie/{tv_id}/recommendations")
     LiveData<ApiResponse<PopularResult>> getSeriesRecommendations(@Path("tv_id") long tvId, @Query("page") int page);
+    @GET("discover/movie")
+    Call<PopularResult> discoverMoviesGenYearEq(
+            @Query("page") int page,
+            @Query("with_genres") String genres,
+            @Query("primary_release_year") String release
+    );
+
+    @GET("discover/movie")
+    Call<PopularResult> discoverMoviesGenYearGt(
+            @Query("page") int page,
+            @Query("with_genres") String genres,
+            @Query("release_date.gte") String release
+    );
+
+    @GET("discover/movie")
+    Call<PopularResult> discoverMoviesGenYearLt(
+            @Query("page") int page,
+            @Query("with_genres") String genres,
+            @Query("release_date.lte") String release
+    );
+
+    @GET("discover/movie")
+    Call<PopularResult> discoverMoviesGen(
+            @Query("page") int page,
+            @Query("with_genres") String genres
+    );
+
+    @GET("discover/movie")
+    Call<PopularResult> discoverMoviesYearEq(
+            @Query("page") int page,
+            @Query("primary_release_year") String release
+    );
+
+    @GET("discover/movie")
+    Call<PopularResult> discoverMoviesYearGt(
+            @Query("page") int page,
+            @Query("release_date.gte") String release
+    );
+
+    @GET("discover/movie")
+    Call<PopularResult> discoverMoviesYearLt(
+            @Query("page") int page,
+            @Query("release_date.lte") String release
+    );
+
+    @GET("discover/movie")
+    Call<PopularResult> discoverMovies(
+            @Query("page") int page
+    );
+
+    @GET("search/movie")
+    Call<PopularResult> searchMovieWithYear(
+            @Query("page") int page,
+            @Query("query") String query,
+            @Query("year") String year
+    );
+
+    @GET("search/movie")
+    Call<PopularResult> searchMovie(
+            @Query("page") int page,
+            @Query("query") String query
+    );
 }

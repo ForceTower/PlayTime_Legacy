@@ -84,6 +84,11 @@ public class TitleListFragment extends NavigationFragment implements Injectable 
                 adapter.submitList(viewModel.getMovies());
             } else if (source == 1) {
                 adapter.submitList(viewModel.getSeries());
+            } else if (source == 2) {
+                String genres = arguments.getString("genre_ids", "");
+                String year = arguments.getString("year", "");
+                String query = arguments.getString("query", "");
+                adapter.submitList(viewModel.getMoviesWithQuery(genres, year, query));
             }
         } else {
             Timber.e("No arguments");

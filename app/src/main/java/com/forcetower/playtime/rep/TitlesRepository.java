@@ -25,6 +25,7 @@ import com.forcetower.playtime.db.model.WatchlistItem;
 import com.forcetower.playtime.db.relations.TitleRecommendation;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 import com.forcetower.playtime.ds.DataSource;
+import com.forcetower.playtime.ds.QueryDataSource;
 import com.forcetower.playtime.ds.SimilarDataSource;
 import com.forcetower.playtime.rep.res.NetworkBoundResource;
 import com.forcetower.playtime.utils.DateUtils;
@@ -442,5 +443,56 @@ public class TitlesRepository {
 
     public void removeFromRecommendations(long titleId) {
         executors.others().execute(() -> database.recommendationDao().removeRecommendationWithTitle(titleId));
+    }
+
+    public LiveData<List<Genre>> getGenres() {
+        return database.genresDao().loadAll();
+    }
+
+    public PagedList<Title> getMoviesWithQuery(String genres, String year, String query) {
+        boolean wGen = validString(genres);
+        boolean wYea = validString(year);
+        boolean wQuery = validString(query);
+        int qYear = 0;
+        String val = "";
+        if (wYea) {
+            String[] ext = year.split(";");
+            val = ext[0];
+            String oth = ext[1];
+
+            switch (oth) {
+                case "eq":
+                    qYear = 1;
+                    break;
+                case "gte":
+                    qYear = 2;
+                    break;
+                case "lte":
+                    qYear = 3;
+                    break;
+            }
+        }
+
+        QueryDataSource source = new QueryDataSource(database, tmdbService, executors, query);
+
+        if (wGen && wYea) {
+            source.setType(0, genres, val, qYear);
+        } else if (wGen) {
+            source.setType(1, genres, null, 0);
+        } else if (wYea) {
+            source.setType(2, null, val, qYear);
+        } else {
+            source.setType(3, null, null, 0);
+        }
+
+        if (wQuery) {
+            if (wYea && qYear == 1) {
+                source.setType(4, null, val, qYear);
+            } else {
+                source.setType(5, null, null, 0);
+            }
+        }
+
+        return getTitles(source);
     }
 }
