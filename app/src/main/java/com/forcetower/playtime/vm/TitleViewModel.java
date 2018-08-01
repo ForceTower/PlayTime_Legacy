@@ -3,9 +3,11 @@ package com.forcetower.playtime.vm;
 import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Genre;
+import com.forcetower.playtime.db.model.MovieRecommendation;
 import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.model.TitleImage;
+import com.forcetower.playtime.db.relations.TitleRecommendation;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 import com.forcetower.playtime.rep.TitlesRepository;
 import com.forcetower.playtime.rep.SeriesRepository;
@@ -88,5 +90,17 @@ public class TitleViewModel extends ViewModel {
 
     public LiveData<Resource<List<TitleImage>>> getTitleImages(long titleId, boolean isMovie) {
         return titlesRepository.getTitleImages(titleId, isMovie);
+    }
+
+    public LiveData<Resource<List<MovieRecommendation>>> getMovieRecommendations(long titleId) {
+        return titlesRepository.getMovieRecommendations(titleId);
+    }
+
+    public LiveData<List<TitleRecommendation>> getMoviesLocalRecommendations() {
+        return titlesRepository.getLocalRecommendations();
+    }
+
+    public void removeFromRecommendations(long titleId) {
+        titlesRepository.removeFromRecommendations(titleId);
     }
 }

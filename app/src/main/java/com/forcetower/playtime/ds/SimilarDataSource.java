@@ -19,6 +19,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 import timber.log.Timber;
 
+import static com.forcetower.playtime.ds.DataSource.prepareDate;
+
 public class SimilarDataSource extends PageKeyedDataSource<Integer, Title> {
     private final int source;
     private final long titleId;
@@ -71,7 +73,7 @@ public class SimilarDataSource extends PageKeyedDataSource<Integer, Title> {
                 int totalPages = result.getTotalPages();
                 int totalResults = result.getTotalResults();
                 List<Title> titles = result.getResults();
-
+                prepareDate(titles);
                 Timber.d("Total Pages: " + totalPages);
                 Timber.d("Results: " + titles);
 
@@ -93,7 +95,7 @@ public class SimilarDataSource extends PageKeyedDataSource<Integer, Title> {
                 int page = result.getPage();
                 int totalPages = result.getTotalPages();
                 List<Title> titles = result.getResults();
-
+                prepareDate(titles);
                 Timber.d("Total Pages: " + totalPages);
                 Timber.d("Results: " + titles);
                 if (source == 0) for (Title title : titles) title.setMovie(true);
@@ -114,7 +116,7 @@ public class SimilarDataSource extends PageKeyedDataSource<Integer, Title> {
                 int page = result.getPage();
                 int totalPages = result.getTotalPages();
                 List<Title> titles = result.getResults();
-
+                prepareDate(titles);
                 Timber.d("Total Pages: " + totalPages);
                 Timber.d("Results: " + titles);
 

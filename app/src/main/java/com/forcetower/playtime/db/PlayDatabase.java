@@ -3,6 +3,8 @@ package com.forcetower.playtime.db;
 import com.forcetower.playtime.db.dao.AccessTokenDao;
 import com.forcetower.playtime.db.dao.CastDao;
 import com.forcetower.playtime.db.dao.GenresDao;
+import com.forcetower.playtime.db.dao.MovieRecommendationDao;
+import com.forcetower.playtime.db.dao.RecommendationDao;
 import com.forcetower.playtime.db.dao.TVSeasonDao;
 import com.forcetower.playtime.db.dao.TitleDao;
 import com.forcetower.playtime.db.dao.TitleGenreDao;
@@ -13,6 +15,8 @@ import com.forcetower.playtime.db.dao.WatchlistItemDao;
 import com.forcetower.playtime.db.model.AccessToken;
 import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Genre;
+import com.forcetower.playtime.db.model.MovieRecommendation;
+import com.forcetower.playtime.db.model.Recommendation;
 import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.model.TitleGenre;
@@ -37,7 +41,9 @@ import androidx.room.RoomDatabase;
         WatchlistItem.class,
         TitleWatch.class,
         TVSeason.class,
-        TitleImage.class
+        TitleImage.class,
+        MovieRecommendation.class,
+        Recommendation.class
 }, version = 1)
 public abstract class PlayDatabase extends RoomDatabase {
     public abstract AccessTokenDao accessTokenDao();
@@ -50,4 +56,6 @@ public abstract class PlayDatabase extends RoomDatabase {
     public abstract TitleWatchDao titleWatchDao();
     public abstract TVSeasonDao tvSeasonDao();
     public abstract TitleImageDao titleImageDao();
+    public abstract MovieRecommendationDao movieRecommendationDao();
+    public abstract RecommendationDao recommendationDao();
 }

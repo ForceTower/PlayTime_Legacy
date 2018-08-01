@@ -38,5 +38,10 @@ public interface TMDbService {
     LiveData<ApiResponse<TitleImages>> getMovieImages(@Path("movie_id") long movieId, @Query("include_image_language") String language);
     @GET("movie/{tv_id}/images")
     LiveData<ApiResponse<TitleImages>> getSeriesImages(@Path("tv_id") long tvId, @Query("include_image_language") String language);
-
+    @GET("movie/{movie_id}/recommendations")
+    LiveData<ApiResponse<PopularResult>> getMoviesRecommendations(@Path("movie_id") long movieId, @Query("page") int page);
+    @GET("movie/{movie_id}/recommendations")
+    Call<PopularResult> getMoviesRecommendationsCall(@Path("movie_id") long movieId, @Query("page") int page);
+    @GET("movie/{tv_id}/recommendations")
+    LiveData<ApiResponse<PopularResult>> getSeriesRecommendations(@Path("tv_id") long tvId, @Query("page") int page);
 }

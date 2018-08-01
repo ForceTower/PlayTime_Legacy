@@ -10,6 +10,7 @@ import com.arlib.floatingsearchview.util.view.SearchInputView;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentSearchBinding;
 import com.forcetower.playtime.db.model.Genre;
+import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.NavigationFragment;
 import com.forcetower.playtime.utils.AnimUtils;
 import com.forcetower.playtime.utils.MockUtils;
@@ -27,7 +28,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import timber.log.Timber;
 
-public class SearchFragment extends NavigationFragment {
+public class SearchFragment extends NavigationFragment implements Injectable {
     private FragmentSearchBinding binding;
 
     @Nullable

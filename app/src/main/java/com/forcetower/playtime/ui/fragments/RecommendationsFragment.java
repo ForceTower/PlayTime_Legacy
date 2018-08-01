@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.forcetower.playtime.db.relations.TitleRecommendation;
+import com.forcetower.playtime.di.Injectable;
 import com.forcetower.playtime.ui.NavigationFragment;
 import com.forcetower.playtime.ui.TitleClickListener;
 import com.forcetower.playtime.ui.TitleDetailsActivity;
@@ -14,21 +16,31 @@ import com.forcetower.playtime.R;
 import com.forcetower.playtime.databinding.FragmentRecommendationsBinding;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.ui.adapter.RecommendationsAdapter;
+import com.forcetower.playtime.vm.PlayViewModelFactory;
+import com.forcetower.playtime.vm.TitleViewModel;
 import com.squareup.picasso.Picasso;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.SwipeDirection;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import timber.log.Timber;
 
-public class RecommendationsFragment extends NavigationFragment {
+public class RecommendationsFragment extends NavigationFragment implements Injectable {
+    @Inject
+    PlayViewModelFactory viewModelFactory;
+
     private FragmentRecommendationsBinding binding;
     private RecommendationsAdapter adapter;
+    private TitleViewModel viewModel;
+    private List<TitleRecommendation> recommendations;
 
     @Nullable
     @Override
@@ -51,22 +63,32 @@ public class RecommendationsFragment extends NavigationFragment {
                 int index = binding.cardStack.getTopIndex();
                 Timber.d("Swiped Index: " + index);
 
+
                 if (adapter.getCount() > index) {
-                    updateInterfaceInformation(adapter.getItem(index));
+                    Title item = adapter.getItem(index);
+                    updateInterfaceInformation(item);
                 } else {
                     updateInterfaceInformation(null);
                 }
 
-                switch (direction) {
-                    case Right:
-                        Timber.d("Add to Watch Later");
-                        break;
-                    case Left:
-                        Timber.d("Don't like this movie");
-                        break;
-                    case Top:
-                        Timber.d("Already seen this");
-                        break;
+                Title item = recommendations.get(index - 1);
+                if (item != null) {
+                    switch (direction) {
+                        case Top:
+                            Timber.d("Add Watch Later " + item.getName());
+                            viewModel.removeFromRecommendations(item.getUid());
+                            viewModel.markToWatchLater(item.getUid(), item.isMovie());
+                            break;
+                        case Left:
+                            viewModel.removeFromRecommendations(item.getUid());
+                            Timber.d("Don't like the movie " + item.getName());
+                            break;
+                        case Right:
+                            Timber.d("Already seen " + item.getName());
+                            viewModel.removeFromRecommendations(item.getUid());
+                            viewModel.markAsWatched(item.getUid(), item.isMovie());
+                            break;
+                    }
                 }
             }
 
@@ -101,15 +123,29 @@ public class RecommendationsFragment extends NavigationFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Timber.d("onActivityCreated()");
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TitleViewModel.class);
+        viewModel.getMoviesLocalRecommendations().observe(this, this::onRecommendationsUpdate);
         if (savedInstanceState == null) {
-            List<Title> titles = MockUtils.getAll();
-            fillAdapter(titles);
-            if (!titles.isEmpty()) updateInterfaceInformation(titles.get(0));
-            else updateInterfaceInformation(null);
+            //List<Title> titles = MockUtils.getAll();
+            //fillAdapter(titles);
+            //if (!titles.isEmpty()) updateInterfaceInformation(titles.get(0));
+            //else updateInterfaceInformation(null);
         }
     }
 
-    private void fillAdapter(List<Title> data) {
+    private void onRecommendationsUpdate(List<TitleRecommendation> recommendations) {
+        if (!recommendations.isEmpty()) {
+            if (this.recommendations == null) {
+                fillAdapter(recommendations);
+                updateInterfaceInformation(recommendations.get(0));
+                this.recommendations = recommendations;
+            }
+        } else {
+            updateInterfaceInformation(null);
+        }
+    }
+
+    private void fillAdapter(List<TitleRecommendation> data) {
         adapter.clear();
         adapter.addAll(data);
     }

@@ -10,6 +10,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import static androidx.room.OnConflictStrategy.IGNORE;
 import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
@@ -37,4 +38,7 @@ public interface TitleDao {
 
     @Query("UPDATE Title SET classification = :companion WHERE uid = :titleId")
     void setClassification(long titleId, String companion);
+
+    @Insert(onConflict = IGNORE)
+    void insertIfNotExists(List<Title> titles);
 }

@@ -7,6 +7,7 @@ import com.forcetower.playtime.api.adapter.ApiResponse;
 import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.api.tmdb.Certification;
 import com.forcetower.playtime.api.tmdb.GenreResponse;
+import com.forcetower.playtime.api.tmdb.PopularResult;
 import com.forcetower.playtime.api.tmdb.TitleCertification;
 import com.forcetower.playtime.api.tmdb.TitleImages;
 import com.forcetower.playtime.api.tmdb.TitleVideo;
@@ -14,18 +15,23 @@ import com.forcetower.playtime.api.tmdb.VideoResults;
 import com.forcetower.playtime.db.PlayDatabase;
 import com.forcetower.playtime.db.model.Cast;
 import com.forcetower.playtime.db.model.Genre;
+import com.forcetower.playtime.db.model.MovieRecommendation;
+import com.forcetower.playtime.db.model.Recommendation;
 import com.forcetower.playtime.db.model.TVSeason;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.db.model.TitleImage;
 import com.forcetower.playtime.db.model.TitleWatch;
 import com.forcetower.playtime.db.model.WatchlistItem;
+import com.forcetower.playtime.db.relations.TitleRecommendation;
 import com.forcetower.playtime.db.relations.TitleWatchlist;
 import com.forcetower.playtime.ds.DataSource;
 import com.forcetower.playtime.ds.SimilarDataSource;
 import com.forcetower.playtime.rep.res.NetworkBoundResource;
 import com.forcetower.playtime.utils.DateUtils;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,8 +43,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.paging.PagedList;
+import retrofit2.Call;
+import retrofit2.Response;
 import timber.log.Timber;
 
+import static com.forcetower.playtime.ds.DataSource.prepareDate;
 import static com.forcetower.playtime.utils.StringUtils.validString;
 
 @Singleton
@@ -285,10 +294,7 @@ public class TitlesRepository {
     }
 
     public void markAsWatched(long titleId, int watchlistId, boolean isMovie) {
-        executors.diskIO().execute(() -> {
-            database.watchlistItemDao().deleteById(watchlistId);
-            database.titleWatchDao().insert(new TitleWatch(System.currentTimeMillis(), titleId, isMovie));
-        });
+        markAsWatched(titleId, isMovie);
     }
 
     public LiveData<List<TVSeason>> getSeasons(long titleId) {
@@ -296,13 +302,76 @@ public class TitlesRepository {
     }
 
     public void markToWatchLater(long titleId, boolean isMovie) {
-        database.titleWatchDao().deleteIfExisting(titleId, isMovie);
-        database.watchlistItemDao().insert(new WatchlistItem(titleId, System.currentTimeMillis()));
+        executors.diskIO().execute(() -> {
+            database.titleWatchDao().deleteIfExisting(titleId, isMovie);
+            database.watchlistItemDao().insert(new WatchlistItem(titleId, System.currentTimeMillis()));
+        });
     }
 
     public void markAsWatched(long titleId, boolean isMovie) {
-        database.watchlistItemDao().deleteIfExisting(titleId);
-        database.titleWatchDao().insert(new TitleWatch(System.currentTimeMillis(), titleId, isMovie));
+        executors.diskIO().execute(() -> {
+            database.watchlistItemDao().deleteIfExisting(titleId);
+            database.recommendationDao().removeRecommendationWithTitle(titleId);
+            database.titleWatchDao().insert(new TitleWatch(System.currentTimeMillis(), titleId, isMovie));
+
+            List<MovieRecommendation> recs = database.movieRecommendationDao().getRecommendationsDirect(titleId);
+            if (!recs.isEmpty()) {
+                Timber.d("Continue using cache");
+                processRemains(recs);
+            } else {
+                Timber.d("Find Recs for title: " + titleId);
+                executors.others().execute(() -> {
+                    createForRecommendations(titleId, isMovie);
+                });
+            }
+        });
+    }
+
+    private void processRemains(List<MovieRecommendation> recs) {
+        List<TitleWatch> watched = database.titleWatchDao().getWatchedDirect();
+        List<Recommendation> recommendations = new ArrayList<>();
+        for (MovieRecommendation rc : recs) {
+            boolean match = false;
+            for (TitleWatch tw : watched) {
+                if (tw.isMovie() && tw.getTitleId() == rc.getTitleRecommended()) {
+                    match = true;
+                    break;
+                }
+            }
+            if (!match) {
+                recommendations.add(new Recommendation(rc.getTitleRecommended()));
+            }
+        }
+        Timber.d("Remains: " + recommendations);
+        database.recommendationDao().insert(recommendations);
+    }
+
+    private void createForRecommendations(long titleId, boolean isMovie) {
+        Call<PopularResult> call = tmdbService.getMoviesRecommendationsCall(titleId, 1);
+        try {
+            Response<PopularResult> execute = call.execute();
+            if (execute.isSuccessful()) {
+                PopularResult body = execute.body();
+                if (body != null) {
+                    prepareDate(body.getResults());
+                    List<MovieRecommendation> recommendations = new ArrayList<>();
+                    for (Title title : body.getResults()) {
+                        recommendations.add(new MovieRecommendation(titleId, title.getUid()));
+                        title.setMovie(true);
+                    }
+                    database.titleDao().insertIfNotExists(body.getResults());
+                    database.movieRecommendationDao().insert(recommendations);
+                    Timber.d("Continue using recent fetch network");
+                    processRemains(recommendations);
+                } else {
+                    Timber.d("Null response");
+                }
+            } else {
+                Timber.d("Failed with code: " + execute.code());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public LiveData<Resource<List<TitleImage>>> getTitleImages(long titleId, boolean isMovie) {
@@ -332,5 +401,46 @@ public class TitlesRepository {
                 else return tmdbService.getSeriesImages(titleId, "null");
             }
         }.asLiveData();
+    }
+
+    public LiveData<Resource<List<MovieRecommendation>>> getMovieRecommendations(long titleId) {
+        return new NetworkBoundResource<List<MovieRecommendation>, PopularResult>(executors) {
+            @Override
+            protected void saveCallResult(@NonNull PopularResult item) {
+                List<MovieRecommendation> recommendations = new ArrayList<>();
+                for (Title title : item.getResults()) {
+                    title.setMovie(true);
+                    recommendations.add(new MovieRecommendation(titleId, title.getUid()));
+                }
+                prepareDate(item.getResults());
+                database.titleDao().insertIfNotExists(item.getResults());
+                database.movieRecommendationDao().insert(recommendations);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable List<MovieRecommendation> data) {
+                return data == null || data.isEmpty();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<List<MovieRecommendation>> loadFromDb() {
+                return database.movieRecommendationDao().getRecommendations(titleId);
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<PopularResult>> createCall() {
+                return tmdbService.getMoviesRecommendations(titleId, 1);
+            }
+        }.asLiveData();
+    }
+
+    public LiveData<List<TitleRecommendation>> getLocalRecommendations() {
+        return database.recommendationDao().getRecommendations();
+    }
+
+    public void removeFromRecommendations(long titleId) {
+        executors.others().execute(() -> database.recommendationDao().removeRecommendationWithTitle(titleId));
     }
 }

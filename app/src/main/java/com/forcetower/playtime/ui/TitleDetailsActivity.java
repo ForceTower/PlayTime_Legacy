@@ -13,6 +13,7 @@ import com.bumptech.glide.request.target.Target;
 import com.forcetower.playtime.R;
 import com.forcetower.playtime.api.adapter.Resource;
 import com.forcetower.playtime.databinding.ActivityTitleDetailsBinding;
+import com.forcetower.playtime.db.model.MovieRecommendation;
 import com.forcetower.playtime.db.model.Title;
 import com.forcetower.playtime.ui.fragments.SeriesSeasonsFragment;
 import com.forcetower.playtime.ui.fragments.TitleAlikeFragment;
@@ -67,6 +68,14 @@ public class TitleDetailsActivity extends BaseActivity implements HasSupportFrag
         long titleId = getIntent().getLongExtra("title_id", 0);
         boolean isMovie = getIntent().getBooleanExtra("is_movie", true);
         viewModel.getTitle(titleId, isMovie).observe(this, this::onTitleUpdate);
+        if (isMovie) viewModel.getMovieRecommendations(titleId).observe(this, this::onRecommendationsReceived);
+    }
+
+    private void onRecommendationsReceived(Resource<List<MovieRecommendation>> resource) {
+        if (resource.data != null)
+            Timber.d("Recommendations: " + resource.data);
+
+        Timber.d("Loading Recommendations: " + resource.status);
     }
 
     private void onTitleUpdate(Resource<Title> resource) {

@@ -7,8 +7,12 @@ import com.forcetower.playtime.api.tmdb.PopularResult;
 import com.forcetower.playtime.db.PlayDatabase;
 import com.forcetower.playtime.db.model.Genre;
 import com.forcetower.playtime.db.model.Title;
+import com.forcetower.playtime.utils.DateUtils;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -61,6 +65,8 @@ public class DataSource extends PageKeyedDataSource<Integer, Title> {
                         int totalResults = result.getTotalResults();
                         List<Title> titles = result.getResults();
 
+                        prepareDate(titles);
+
                         Timber.d("Total Pages: " + totalPages);
                         Timber.d("Results: " + titles);
 
@@ -100,6 +106,8 @@ public class DataSource extends PageKeyedDataSource<Integer, Title> {
                         int totalPages = result.getTotalPages();
                         List<Title> titles = result.getResults();
 
+                        prepareDate(titles);
+
                         Timber.d("Total Pages: " + totalPages);
                         Timber.d("Results: " + titles);
                         if (source == 0) for (Title title : titles) title.setMovie(true);
@@ -138,6 +146,8 @@ public class DataSource extends PageKeyedDataSource<Integer, Title> {
                         int totalPages = result.getTotalPages();
                         List<Title> titles = result.getResults();
 
+                        prepareDate(titles);
+
                         Timber.d("Total Pages: " + totalPages);
                         Timber.d("Results: " + titles);
 
@@ -174,6 +184,26 @@ public class DataSource extends PageKeyedDataSource<Integer, Title> {
 
             String string = builder.toString();
             title.setGenres(string);
+        }
+    }
+
+    public static void prepareDate(List<Title> titles) {
+        for (Title title : titles) {
+            String release = title.getReleaseDate();
+            if (release == null) continue;
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date = format.parse(release);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                String parsed = (calendar.get(Calendar.DAY_OF_MONTH) + " de " +
+                        DateUtils.monthFromInt(calendar.get(Calendar.MONTH) + 1) + " de " +
+                        calendar.get(Calendar.YEAR));
+                title.setReleaseDate(parsed);
+            } catch (Exception e) {
+                Timber.d("Exception raised on dare parse: " + e.getMessage());
+            }
         }
     }
 }
