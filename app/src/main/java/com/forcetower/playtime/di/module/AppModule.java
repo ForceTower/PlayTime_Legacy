@@ -41,7 +41,7 @@ public class AppModule {
         int value = (int) (Math.random() * 3500);
         String random = "play_database_" + value + ".db";
         Timber.d("Database: " + random);
-        return Room.databaseBuilder(application, PlayDatabase.class, "play_database.db")
+        return Room.databaseBuilder(application, PlayDatabase.class, BuildConfig.DEBUG ? random : "play_database.db")
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
