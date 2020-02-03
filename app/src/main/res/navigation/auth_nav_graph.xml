@@ -12,7 +12,6 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splash_landing"
-            app:clearTask="true"
             app:destination="@id/landing"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"

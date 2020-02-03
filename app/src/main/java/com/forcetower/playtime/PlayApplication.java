@@ -10,12 +10,12 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
+import dagger.android.HasAndroidInjector;
 import timber.log.Timber;
 
-public class PlayApplication extends Application implements HasActivityInjector {
+public class PlayApplication extends Application implements HasAndroidInjector {
     @Inject
-    DispatchingAndroidInjector<Activity> activityInjector;
+    DispatchingAndroidInjector<Object> activityInjector;
 
     @Override
     public void onCreate() {
@@ -29,7 +29,7 @@ public class PlayApplication extends Application implements HasActivityInjector 
     }
 
     @Override
-    public AndroidInjector<Activity> activityInjector() {
+    public AndroidInjector<Object> androidInjector() {
         return activityInjector;
     }
 }

@@ -14,7 +14,7 @@ public class GeneralBindings {
     public static void loadImage(ImageView imageView, String url) {
         if (url != null) {
             if (url.startsWith("/")) url = "https://image.tmdb.org/t/p/w780" + url;
-            Picasso.with(imageView.getContext())
+            Picasso.get()
                     .load(url)
                     .into(imageView);
         }

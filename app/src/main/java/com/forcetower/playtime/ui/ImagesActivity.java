@@ -23,11 +23,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+import dagger.android.HasAndroidInjector;
 
-public class ImagesActivity extends BaseActivity implements HasSupportFragmentInjector {
+public class ImagesActivity extends BaseActivity implements HasAndroidInjector {
     @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
+    DispatchingAndroidInjector<Object> fragmentInjector;
     @Inject
     PlayViewModelFactory viewModelFactory;
 
@@ -62,7 +62,7 @@ public class ImagesActivity extends BaseActivity implements HasSupportFragmentIn
     }
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
+    public AndroidInjector<Object> androidInjector() {
         return fragmentInjector;
     }
 

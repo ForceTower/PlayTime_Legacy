@@ -16,18 +16,17 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+import dagger.android.HasAndroidInjector;
 import timber.log.Timber;
 
 import static com.forcetower.playtime.utils.SnackbarHelper.configSnackbar;
 
-public class AuthActivity extends BaseActivity implements HasSupportFragmentInjector {
+public class AuthActivity extends BaseActivity implements HasAndroidInjector {
     @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
+    DispatchingAndroidInjector<Object> fragmentInjector;
     @Inject
     PlayViewModelFactory viewModelFactory;
 
@@ -53,7 +52,7 @@ public class AuthActivity extends BaseActivity implements HasSupportFragmentInje
     }
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
+    public AndroidInjector<Object> androidInjector() {
         return fragmentInjector;
     }
 

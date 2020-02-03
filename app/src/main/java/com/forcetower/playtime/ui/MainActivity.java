@@ -17,17 +17,16 @@ import javax.inject.Inject;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.ui.NavigationUI;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+import dagger.android.HasAndroidInjector;
 import timber.log.Timber;
 
-public class MainActivity extends BaseActivity implements ToolbarActivity, HasSupportFragmentInjector {
+public class MainActivity extends BaseActivity implements ToolbarActivity, HasAndroidInjector {
     @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
+    DispatchingAndroidInjector<Object> fragmentInjector;
     @Inject
     PlayViewModelFactory viewModelFactory;
 
@@ -63,7 +62,7 @@ public class MainActivity extends BaseActivity implements ToolbarActivity, HasSu
         if (resource.data != null) {
             Timber.d("Connected as " + resource.data.getName());
             String image = resource.data.getImage();
-            Picasso.with(this).load(image).into(binding.toolbarInclude.userImage);
+            Picasso.get().load(image).into(binding.toolbarInclude.userImage);
         }
     }
 
@@ -78,7 +77,7 @@ public class MainActivity extends BaseActivity implements ToolbarActivity, HasSu
     }
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
+    public AndroidInjector<Object> androidInjector() {
         return fragmentInjector;
     }
 }

@@ -36,10 +36,10 @@ public class RecommendationsAdapter extends ArrayAdapter<Title> {
                 ImageView imageView = contentView.findViewById(R.id.image);
                 String url = item.getImage();
                 if (url.startsWith("/")) url = "https://image.tmdb.org/t/p/w780" + url;
-                Picasso.with(imageView.getContext())
+                Picasso.get()
                         .load(url)
                         .into(imageView);
-                Picasso.with(imageView.getContext()).load(url).into(imageView);
+                Picasso.get().load(url).into(imageView);
             }
 
             return contentView;

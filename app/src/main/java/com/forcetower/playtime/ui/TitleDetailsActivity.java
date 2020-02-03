@@ -40,14 +40,14 @@ import androidx.palette.graphics.Palette;
 import androidx.viewpager.widget.ViewPager;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+import dagger.android.HasAndroidInjector;
 import timber.log.Timber;
 
 import static com.forcetower.playtime.utils.SnackbarHelper.configSnackbar;
 
-public class TitleDetailsActivity extends BaseActivity implements HasSupportFragmentInjector {
+public class TitleDetailsActivity extends BaseActivity implements HasAndroidInjector {
     @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
+    DispatchingAndroidInjector<Object> fragmentInjector;
     @Inject
     PlayViewModelFactory viewModelFactory;
 
@@ -183,7 +183,7 @@ public class TitleDetailsActivity extends BaseActivity implements HasSupportFrag
     }
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
+    public AndroidInjector<Object> androidInjector() {
         return fragmentInjector;
     }
 
